@@ -2,6 +2,9 @@ package cmd
 
 import (
 	"errors"
+	"github.com/airchains-network/junction/x/wasm"
+	"github.com/prometheus/client_golang/prometheus"
+	"github.com/spf13/cast"
 	"io"
 
 	"cosmossdk.io/log"
@@ -26,6 +29,8 @@ import (
 	"github.com/spf13/viper"
 
 	"github.com/airchains-network/junction/app"
+	wasmcli "github.com/airchains-network/junction/x/wasm/client/cli"
+	wasmkeeper "github.com/airchains-network/junction/x/wasm/keeper"
 )
 
 func initRootCmd(
@@ -44,7 +49,7 @@ func initRootCmd(
 	)
 
 	server.AddCommands(rootCmd, app.DefaultNodeHome, newApp, appExport, addModuleInitFlags)
-
+	wasmcli.ExtendUnsafeResetAllCmd(rootCmd)
 	// add keybase, auxiliary RPC, query, genesis, and tx child commands
 	rootCmd.AddCommand(
 		server.StatusCommand(),
@@ -57,6 +62,7 @@ func initRootCmd(
 
 func addModuleInitFlags(startCmd *cobra.Command) {
 	crisis.AddModuleInitFlags(startCmd)
+	wasm.AddModuleInitFlags(startCmd)
 }
 
 // genesisCommand builds genesis-related `junctiond genesis` command. Users may provide application specific commands as a parameter
@@ -128,9 +134,15 @@ func newApp(
 ) servertypes.Application {
 	baseappOptions := server.DefaultBaseappOptions(appOpts)
 
+	var wasmOpts []wasmkeeper.Option
+	if cast.ToBool(appOpts.Get("telemetry.enabled")) {
+		wasmOpts = append(wasmOpts, wasmkeeper.WithVMCacheMetrics(prometheus.DefaultRegisterer))
+	}
+
 	app, err := app.New(
 		logger, db, traceStore, true,
 		appOpts,
+		wasmOpts,
 		baseappOptions...,
 	)
 	if err != nil {
@@ -170,9 +182,10 @@ func appExport(
 	// overwrite the FlagInvCheckPeriod
 	viperAppOpts.Set(server.FlagInvCheckPeriod, 1)
 	appOpts = viperAppOpts
+	var emptyWasmOpts []wasmkeeper.Option
 
 	if height != -1 {
-		bApp, err = app.New(logger, db, traceStore, false, appOpts)
+		bApp, err = app.New(logger, db, traceStore, false, appOpts, emptyWasmOpts)
 		if err != nil {
 			return servertypes.ExportedApp{}, err
 		}
@@ -181,7 +194,7 @@ func appExport(
 			return servertypes.ExportedApp{}, err
 		}
 	} else {
-		bApp, err = app.New(logger, db, traceStore, true, appOpts)
+		bApp, err = app.New(logger, db, traceStore, true, appOpts, emptyWasmOpts)
 		if err != nil {
 			return servertypes.ExportedApp{}, err
 		}
