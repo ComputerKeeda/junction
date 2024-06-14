@@ -1,6 +1,8 @@
 package app
 
 import (
+	"github.com/cosmos/cosmos-sdk/crypto/keyring"
+	"github.com/cosmos/cosmos-sdk/types"
 	"io"
 	"os"
 	"path/filepath"
@@ -75,6 +77,9 @@ import (
 	ibctransferkeeper "github.com/cosmos/ibc-go/v8/modules/apps/transfer/keeper"
 	ibckeeper "github.com/cosmos/ibc-go/v8/modules/core/keeper"
 
+	wasm "github.com/airchains-network/junction/x/wasm"
+	wasmkeeper "github.com/airchains-network/junction/x/wasm/keeper"
+
 	junctionmodulekeeper "github.com/airchains-network/junction/x/junction/keeper"
 	// this line is used by starport scaffolding # stargate/app/moduleImport
 
@@ -140,6 +145,7 @@ type App struct {
 	ScopedICAControllerKeeper capabilitykeeper.ScopedKeeper
 	ScopedICAHostKeeper       capabilitykeeper.ScopedKeeper
 
+	WasmKeeper     wasmkeeper.Keeper
 	JunctionKeeper junctionmodulekeeper.Keeper
 	// this line is used by starport scaffolding # stargate/app/keeperDeclaration
 
@@ -182,7 +188,42 @@ func AppConfig() depinject.Config {
 				govtypes.ModuleName:     gov.NewAppModuleBasic(getGovProposalHandlers()),
 				// this line is used by starport scaffolding # stargate/appConfig/moduleBasic
 			},
+			log.NewNopLogger(),
 		),
+		depinject.Provide(
+			ProvideClientContext,
+			ProvideKeyring,
+			wasm.AppModuleBasic{},
+			wasmkeeper.NewKeeper,
+		),
+	)
+}
+
+// ProvideClientContext provides the client context.
+func ProvideClientContext(
+	appCodec codec.Codec,
+	interfaceRegistry codectypes.InterfaceRegistry,
+	txConfig client.TxConfig,
+) client.Context {
+	return client.Context{}.
+		WithCodec(appCodec).
+		WithInterfaceRegistry(interfaceRegistry).
+		WithTxConfig(txConfig).
+		WithLegacyAmino(codec.NewLegacyAmino()).
+		WithInput(os.Stdin).
+		WithAccountRetriever(authtypes.AccountRetriever{}).
+		WithHomeDir(DefaultNodeHome).
+		WithViper(Name)
+}
+
+// ProvideKeyring provides the keyring.
+func ProvideKeyring(clientCtx client.Context, appCodec codec.Codec) (keyring.Keyring, error) {
+	return keyring.New(
+		types.KeyringServiceName(),
+		keyring.BackendMemory,
+		clientCtx.HomeDir,
+		clientCtx.Input,
+		appCodec,
 	)
 }
 
