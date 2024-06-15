@@ -20,11 +20,11 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/CosmWasm/wasmd/app"
-	wasmibctesting "github.com/CosmWasm/wasmd/x/wasm/ibctesting"
-	wasmkeeper "github.com/CosmWasm/wasmd/x/wasm/keeper"
-	"github.com/CosmWasm/wasmd/x/wasm/keeper/wasmtesting"
-	"github.com/CosmWasm/wasmd/x/wasm/types"
+	"github.com/airchains-network/junction/app"
+	wasmibctesting "github.com/airchains-network/junction/x/wasm/ibctesting"
+	wasmkeeper "github.com/airchains-network/junction/x/wasm/keeper"
+	"github.com/airchains-network/junction/x/wasm/keeper/wasmtesting"
+	"github.com/airchains-network/junction/x/wasm/types"
 )
 
 func TestFromIBCTransferToContract(t *testing.T) {

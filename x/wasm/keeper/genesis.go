@@ -9,7 +9,7 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/CosmWasm/wasmd/x/wasm/types"
+	"github.com/airchains-network/junction/x/wasm/types"
 )
 
 // ValidatorSetSource is a subset of the staking keeper

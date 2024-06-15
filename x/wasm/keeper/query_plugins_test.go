@@ -32,10 +32,10 @@ import (
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
 
-	"github.com/CosmWasm/wasmd/app"
-	"github.com/CosmWasm/wasmd/x/wasm/keeper"
-	"github.com/CosmWasm/wasmd/x/wasm/keeper/wasmtesting"
-	"github.com/CosmWasm/wasmd/x/wasm/types"
+	"github.com/airchains-network/junction/app"
+	"github.com/airchains-network/junction/x/wasm/keeper"
+	"github.com/airchains-network/junction/x/wasm/keeper/wasmtesting"
+	"github.com/airchains-network/junction/x/wasm/types"
 )
 
 func TestIBCQuerier(t *testing.T) {

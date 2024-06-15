@@ -25,11 +25,11 @@ import (
 	"github.com/cosmos/cosmos-sdk/types/module"
 	simtypes "github.com/cosmos/cosmos-sdk/types/simulation"
 
-	"github.com/CosmWasm/wasmd/x/wasm/client/cli"
-	"github.com/CosmWasm/wasmd/x/wasm/exported"
-	"github.com/CosmWasm/wasmd/x/wasm/keeper"
-	"github.com/CosmWasm/wasmd/x/wasm/simulation"
-	"github.com/CosmWasm/wasmd/x/wasm/types"
+	"github.com/airchains-network/junction/x/wasm/client/cli"
+	"github.com/airchains-network/junction/x/wasm/exported"
+	"github.com/airchains-network/junction/x/wasm/keeper"
+	"github.com/airchains-network/junction/x/wasm/simulation"
+	"github.com/airchains-network/junction/x/wasm/types"
 )
 
 var (

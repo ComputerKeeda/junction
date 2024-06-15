@@ -9,9 +9,9 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/CosmWasm/wasmd/x/wasm/ioutils"
-	"github.com/CosmWasm/wasmd/x/wasm/keeper/testdata"
-	"github.com/CosmWasm/wasmd/x/wasm/types"
+	"github.com/airchains-network/junction/x/wasm/ioutils"
+	"github.com/airchains-network/junction/x/wasm/keeper/testdata"
+	"github.com/airchains-network/junction/x/wasm/types"
 )
 
 func TestParseVerificationFlags(t *testing.T) {
