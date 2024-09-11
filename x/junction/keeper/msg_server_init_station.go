@@ -2,6 +2,7 @@ package keeper
 
 import (
 	"context"
+	"encoding/json"
 
 	"github.com/airchains-network/junction/x/junction/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -13,16 +14,30 @@ func (k msgServer) InitStation(goCtx context.Context, msg *types.MsgInitStation)
 	var verificationKey = msg.VerificationKey
 	var stationID = msg.StationId
 	var stationInfo = msg.StationInfo
+	var extraArgs = msg.ExtraArg
+
+	var stationArgs types.StationArg
+	stationArgsUnmarshalErr := json.Unmarshal(extraArgs, &stationArgs)
+	if stationArgsUnmarshalErr != nil {
+		return &types.MsgInitStationResponse{
+			StationId: "nil",
+			Status:    false,
+		}, stationArgsUnmarshalErr
+	}
 
 	var newStation = types.Stations{
-		Tracks:               []string{msg.Creator},
-		VotingPower:          []uint64{100},
+		Tracks:               msg.Tracks,
+		VotingPower:          msg.TracksVotingPower,
 		LatestPod:            0,
 		LatestMerkleRootHash: "0",
 		VerificationKey:      verificationKey,
 		StationInfo:          stationInfo,
 		Id:                   stationID,
 		Creator:              msg.Creator,
+		Spsp:                 "nil",
+		DaType:               stationArgs.DaType,
+		TrackType:            stationArgs.TrackType,
+		Prover:               stationArgs.Prover,
 	}
 
 	Error := k.initStationHelper(ctx, newStation, msg.Creator)

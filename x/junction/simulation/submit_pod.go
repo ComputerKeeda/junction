@@ -24,6 +24,6 @@ func SimulateMsgSubmitPod(
 
 		// TODO: Handling the SubmitPod simulation
 
-		return simtypes.NoOpMsg(types.ModuleName, msg.Type(), "SubmitPod simulation not implemented"), nil, nil
+		return simtypes.NoOpMsg(types.ModuleName, sdk.MsgTypeURL(msg), "SubmitPod simulation not implemented"), nil, nil
 	}
 }

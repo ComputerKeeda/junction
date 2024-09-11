@@ -3,16 +3,16 @@ package keeper_test
 import (
 	"testing"
 
-	testkeeper "github.com/airchains-network/junction/testutil/keeper"
-	"github.com/airchains-network/junction/x/junction/types"
 	"github.com/stretchr/testify/require"
+
+	keepertest "github.com/airchains-network/junction/testutil/keeper"
+	"github.com/airchains-network/junction/x/junction/types"
 )
 
 func TestGetParams(t *testing.T) {
-	k, ctx := testkeeper.JunctionKeeper(t)
+	k, ctx := keepertest.JunctionKeeper(t)
 	params := types.DefaultParams()
 
-	k.SetParams(ctx, params)
-
+	require.NoError(t, k.SetParams(ctx, params))
 	require.EqualValues(t, params, k.GetParams(ctx))
 }

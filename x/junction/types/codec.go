@@ -1,18 +1,11 @@
 package types
 
 import (
-	"github.com/cosmos/cosmos-sdk/codec"
 	cdctypes "github.com/cosmos/cosmos-sdk/codec/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/msgservice"
+	// this line is used by starport scaffolding # 1
 )
-
-func RegisterCodec(cdc *codec.LegacyAmino) {
-	cdc.RegisterConcrete(&MsgInitStation{}, "junction/InitStation", nil)
-	cdc.RegisterConcrete(&MsgSubmitPod{}, "junction/SubmitPod", nil)
-	cdc.RegisterConcrete(&MsgVerifyPod{}, "junction/VerifyPod", nil)
-	// this line is used by starport scaffolding # 2
-}
 
 func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 	registry.RegisterImplementations((*sdk.Msg)(nil),
@@ -24,12 +17,25 @@ func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgVerifyPod{},
 	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgInitiateVrf{},
+	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgValidateVrf{},
+	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgProcessVrfDispute{},
+	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgAddNewTrack{},
+	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgRemoveTrack{},
+	)
 	// this line is used by starport scaffolding # 3
 
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgUpdateParams{},
+	)
 	msgservice.RegisterMsgServiceDesc(registry, &_Msg_serviceDesc)
 }
-
-var (
-	Amino     = codec.NewLegacyAmino()
-	ModuleCdc = codec.NewProtoCodec(cdctypes.NewInterfaceRegistry())
-)

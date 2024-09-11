@@ -5,10 +5,11 @@ import (
 	"fmt"
 	"strconv"
 
+	"cosmossdk.io/store/prefix"
 	bls12381 "github.com/airchains-network/gnark/backend/groth16/bls12-381"
 	"github.com/airchains-network/junction/x/junction/types"
 	"github.com/consensys/gnark-crypto/ecc/bls12-381/fr"
-	"github.com/cosmos/cosmos-sdk/store/prefix"
+	"github.com/cosmos/cosmos-sdk/runtime"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"google.golang.org/grpc/codes"
@@ -22,64 +23,11 @@ func GetPodKeyByte(stationId string, podNumber uint64) (string, []byte) {
 	return podStoreKey, podStoreKeyByte
 }
 
-func (k Keeper) SubmitPodHelper(ctx sdk.Context, msg *types.MsgSubmitPod) *sdkerrors.Error {
-
-	var stationId = msg.StationId
-	var podNumber = msg.PodNumber
-	var merkleRootHash = msg.MerkleRootHash
-	var previousMerkleRootHash = msg.PreviousMerkleRootHash
-	var publicWitness = msg.PublicWitness
-	var timestamp = msg.Timestamp
-
-	// check if witness format is correct
-	var witness fr.Vector
-	witnessCheck := json.Unmarshal(publicWitness, &witness)
-	if witnessCheck != nil {
-		return sdkerrors.ErrInvalidRequest
-	}
+func (k Keeper) GetPodHelper(ctx sdk.Context, stationId string, podNumber uint64) (pods types.Pods, sdkErr error) {
+	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
 
 	podStoreKey, podStoreKeyByte := GetPodKeyByte(stationId, podNumber) // "pods/{stationId}/{podNumber}
-	podStore := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(podStoreKey))
-
-	// check whether the previous merkle root hash and the incoming hash is same or not
-	if podNumber > 1 {
-		_, previousPodNumber := GetPodKeyByte(stationId, podNumber-1)
-		previousPodDetailsByte := podStore.Get(previousPodNumber)
-		var previousPodDetails types.Pods
-		k.cdc.MustUnmarshal(previousPodDetailsByte, &previousPodDetails)
-
-		if previousPodDetails.MerkleRootHash != previousMerkleRootHash {
-			return sdkerrors.ErrInvalidRequest
-		}
-	}
-
-	newPod := types.Pods{
-		PodNumber:              podNumber,
-		MerkleRootHash:         merkleRootHash,
-		PreviousMerkleRootHash: previousMerkleRootHash,
-		ZkProof:                []byte(""),
-		Witness:                publicWitness,
-		Timestamp:              timestamp,
-		IsVerified:             false,
-	}
-
-	// store new pod details
-	storingData := k.cdc.MustMarshal(&newPod)
-	podStore.Set(podStoreKeyByte, storingData) // "pods/{stationId}/{podNumberByte}
-
-	// update pod-submitted-count
-	figureDBStore := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.FiguresDBPath))
-	podSubmittedCountKey := fmt.Sprintf("pod-submitted-count__%s", stationId)
-	podNumberString := strconv.FormatUint(podNumber, 10)
-	figureDBStore.Set([]byte(podSubmittedCountKey), []byte(podNumberString))
-
-	return nil
-}
-
-func (k Keeper) GetPodHelper(ctx sdk.Context, stationId string, podNumber uint64) (pods types.Pods, sdkErr *sdkerrors.Error) {
-
-	podStoreKey, podStoreKeyByte := GetPodKeyByte(stationId, podNumber) // "pods/{stationId}/{podNumber}
-	podStore := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(podStoreKey))
+	podStore := prefix.NewStore(storeAdapter, types.KeyPrefix(podStoreKey))
 	podDetailsByte := podStore.Get(podStoreKeyByte)
 
 	if podDetailsByte == nil {
@@ -93,7 +41,7 @@ func (k Keeper) GetPodHelper(ctx sdk.Context, stationId string, podNumber uint64
 }
 
 func (k Keeper) VerifyPodHelper(ctx sdk.Context, msg *types.MsgVerifyPod) error {
-
+	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
 	stationId := msg.StationId
 	podNumber := msg.PodNumber
 	merkleRootHash := msg.MerkleRootHash
@@ -124,7 +72,7 @@ func (k Keeper) VerifyPodHelper(ctx sdk.Context, msg *types.MsgVerifyPod) error 
 	}
 
 	// get latest submitted pod == podNumber
-	figureDBStore := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.FiguresDBPath))
+	figureDBStore := prefix.NewStore(storeAdapter, types.KeyPrefix(types.FiguresDBPath))
 	podSubmittedCountKey := fmt.Sprintf("pod-submitted-count__%s", stationId)
 	submittedPodNumberByte := figureDBStore.Get([]byte(podSubmittedCountKey))
 	submittedPodNumString := string(submittedPodNumberByte)
@@ -137,7 +85,7 @@ func (k Keeper) VerifyPodHelper(ctx sdk.Context, msg *types.MsgVerifyPod) error 
 	}
 
 	podStoreKey, podStoreKeyByte := GetPodKeyByte(stationId, podNumber) // "pods/{stationId}/{podNumber}
-	podStore := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(podStoreKey))
+	podStore := prefix.NewStore(storeAdapter, types.KeyPrefix(podStoreKey))
 	podDetailsByte := podStore.Get(podStoreKeyByte)
 
 	if podDetailsByte == nil {
@@ -199,7 +147,7 @@ func (k Keeper) VerifyPodHelper(ctx sdk.Context, msg *types.MsgVerifyPod) error 
 	}
 	storingData := k.cdc.MustMarshal(&newPod)
 	podStoreKey, podStoreKeyByte = GetPodKeyByte(stationId, currentlyStoredPod.PodNumber) // "pods/{stationId}/{podNumber}
-	podStore = prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(podStoreKey))
+	podStore = prefix.NewStore(storeAdapter, types.KeyPrefix(podStoreKey))
 	podStore.Set(podStoreKeyByte, storingData)
 
 	// update latest_verified_pod_count
@@ -219,74 +167,15 @@ func (k Keeper) VerifyPodHelper(ctx sdk.Context, msg *types.MsgVerifyPod) error 
 		StationInfo:          station.StationInfo,
 		Id:                   station.Id,
 		Creator:              station.Creator,
+		Spsp:                 "Reset",
+		TrackType:            station.TrackType,
+		DaType:               station.DaType,
+		Prover:               station.Prover,
 	}
-	stationDataDB := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.StationDataKey))
+	stationDataDB := prefix.NewStore(storeAdapter, types.KeyPrefix(types.StationDataKey))
 	byteStation := k.cdc.MustMarshal(&updatedStationDetails)
 	byteStationId := []byte(station.Id)
 	stationDataDB.Set(byteStationId, byteStation)
-
-	return nil
-}
-
-func (k Keeper) ConfirmPodVerificationHelper(ctx sdk.Context, request *types.QueryConfirmPodVerificationRequest) error {
-
-	stationId := request.StationId
-	podNumber := request.PodNumber
-	merkleRootHash := request.MerkleRootHash
-	previousMerkleRootHash := request.PreviousMerkleRootHash
-	zkProof := request.ZkProof
-
-	// get station details by id
-	station, err := k.getStationById(ctx, stationId)
-	if err != nil {
-		return status.Error(codes.NotFound, "station not found")
-	}
-
-	podStoreKey, podStoreKeyByte := GetPodKeyByte(stationId, podNumber) // "pods/{stationId}/{podNumber}
-	podStore := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(podStoreKey))
-	podDetailsByte := podStore.Get(podStoreKeyByte)
-
-	if podDetailsByte == nil {
-		return status.Error(codes.DataLoss, "pod detail byte conversion failed")
-	}
-
-	var currentlyStoredPod types.Pods
-	k.cdc.MustUnmarshal(podDetailsByte, &currentlyStoredPod)
-	if podNumber > 1 {
-		if currentlyStoredPod.PreviousMerkleRootHash != previousMerkleRootHash {
-			return status.Error(codes.InvalidArgument, "incorrect previous merkle root hash")
-		}
-		if currentlyStoredPod.MerkleRootHash != merkleRootHash {
-			return status.Error(codes.InvalidArgument, "incorrect merkle root hash")
-		}
-	}
-
-	// Verification Variables requirement and unmarshal codes below
-	var proof *bls12381.Proof
-	var witness fr.Vector
-	var vk bls12381.VerifyingKey
-
-	proofErr := json.Unmarshal(zkProof, &proof)
-	if proofErr != nil {
-		return status.Error(codes.InvalidArgument, "invalid proof provided in argument")
-	}
-
-	podWitness := currentlyStoredPod.Witness
-	witnessErr := json.Unmarshal(podWitness, &witness)
-	if witnessErr != nil {
-		return status.Error(codes.Unavailable, "error in unmarshalling witness")
-	}
-
-	currentStationVerificationKey := station.VerificationKey
-	unmarshalVkError := json.Unmarshal(currentStationVerificationKey, &vk)
-	if unmarshalVkError != nil {
-		return status.Error(codes.Unavailable, "error in unmarshalling verification key")
-	}
-
-	verifyErr := bls12381.Verify(proof, &vk, witness)
-	if verifyErr != nil {
-		return status.Error(codes.Aborted, "verification failed"+verifyErr.Error())
-	}
 
 	return nil
 }

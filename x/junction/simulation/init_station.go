@@ -24,6 +24,6 @@ func SimulateMsgInitStation(
 
 		// TODO: Handling the InitStation simulation
 
-		return simtypes.NoOpMsg(types.ModuleName, msg.Type(), "InitStation simulation not implemented"), nil, nil
+		return simtypes.NoOpMsg(types.ModuleName, sdk.MsgTypeURL(msg), "InitStation simulation not implemented"), nil, nil
 	}
 }

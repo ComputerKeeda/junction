@@ -4,6 +4,8 @@ release/
 .idea/
 .vscode/
 .DS_Store
-.github/
-.trunk/
-go.sum
+*.dot
+*.log
+*.ign
+/.trunk
+/.idea

@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"strconv"
 
-	"github.com/cosmos/cosmos-sdk/store/prefix"
-
+	"cosmossdk.io/store/prefix"
 	"github.com/airchains-network/junction/x/junction/types"
+	"github.com/cosmos/cosmos-sdk/runtime"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
@@ -19,8 +19,9 @@ func (k Keeper) GetLatestVerifiedPodNumber(goCtx context.Context, req *types.Que
 	}
 
 	ctx := sdk.UnwrapSDKContext(goCtx)
+	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
 
-	figureDBStore := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.FiguresDBPath))
+	figureDBStore := prefix.NewStore(storeAdapter, types.KeyPrefix(types.FiguresDBPath))
 	podSubmittedCountKey := fmt.Sprintf("pod-verified-count__%s", req.StationId)
 	podNumberByte := figureDBStore.Get([]byte(podSubmittedCountKey))
 	if podNumberByte == nil {

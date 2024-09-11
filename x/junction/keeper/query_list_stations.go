@@ -3,25 +3,25 @@ package keeper
 import (
 	"context"
 
-	"github.com/cosmos/cosmos-sdk/store/prefix"
-	"github.com/cosmos/cosmos-sdk/types/query"
-
+	"cosmossdk.io/store/prefix"
 	"github.com/airchains-network/junction/x/junction/types"
+	"github.com/cosmos/cosmos-sdk/runtime"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/cosmos/cosmos-sdk/types/query"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
 
 func (k Keeper) ListStations(goCtx context.Context, req *types.QueryListStationsRequest) (*types.QueryListStationsResponse, error) {
+	ctx := sdk.UnwrapSDKContext(goCtx)
+	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
 	if req == nil {
 		return nil, status.Error(codes.InvalidArgument, "invalid request")
 	}
 
-	ctx := sdk.UnwrapSDKContext(goCtx)
-
 	var stations []types.Stations
 
-	stationDataDB := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.StationDataKey))
+	stationDataDB := prefix.NewStore(storeAdapter, types.KeyPrefix(types.StationDataKey))
 
 	pageRes, err := query.Paginate(stationDataDB, req.Pagination, func(key []byte, value []byte) error {
 		var singleStationData types.Stations

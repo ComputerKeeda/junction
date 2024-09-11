@@ -24,6 +24,6 @@ func SimulateMsgVerifyPod(
 
 		// TODO: Handling the VerifyPod simulation
 
-		return simtypes.NoOpMsg(types.ModuleName, msg.Type(), "VerifyPod simulation not implemented"), nil, nil
+		return simtypes.NoOpMsg(types.ModuleName, sdk.MsgTypeURL(msg), "VerifyPod simulation not implemented"), nil, nil
 	}
 }
