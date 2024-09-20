@@ -2,18 +2,19 @@
 package junction
 
 import (
+	fmt "fmt"
+	io "io"
+	reflect "reflect"
+	sync "sync"
+
 	_ "cosmossdk.io/api/amino"
 	_ "cosmossdk.io/api/cosmos/msg/v1"
-	fmt "fmt"
 	_ "github.com/cosmos/cosmos-proto"
 	runtime "github.com/cosmos/cosmos-proto/runtime"
 	_ "github.com/cosmos/gogoproto/gogoproto"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoiface "google.golang.org/protobuf/runtime/protoiface"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	io "io"
-	reflect "reflect"
-	sync "sync"
 )
 
 var (
@@ -10996,6 +10997,948 @@ func (x *fastReflection_MsgRemoveTrackResponse) ProtoMethods() *protoiface.Metho
 	}
 }
 
+var (
+	md_MsgSetEspressoFinalizedState                protoreflect.MessageDescriptor
+	fd_MsgSetEspressoFinalizedState_creator        protoreflect.FieldDescriptor
+	fd_MsgSetEspressoFinalizedState_finalizedState protoreflect.FieldDescriptor
+	fd_MsgSetEspressoFinalizedState_nounce         protoreflect.FieldDescriptor
+)
+
+func init() {
+	file_junction_junction_tx_proto_init()
+	md_MsgSetEspressoFinalizedState = File_junction_junction_tx_proto.Messages().ByName("MsgSetEspressoFinalizedState")
+	fd_MsgSetEspressoFinalizedState_creator = md_MsgSetEspressoFinalizedState.Fields().ByName("creator")
+	fd_MsgSetEspressoFinalizedState_finalizedState = md_MsgSetEspressoFinalizedState.Fields().ByName("finalizedState")
+	fd_MsgSetEspressoFinalizedState_nounce = md_MsgSetEspressoFinalizedState.Fields().ByName("nounce")
+}
+
+var _ protoreflect.Message = (*fastReflection_MsgSetEspressoFinalizedState)(nil)
+
+type fastReflection_MsgSetEspressoFinalizedState MsgSetEspressoFinalizedState
+
+func (x *MsgSetEspressoFinalizedState) ProtoReflect() protoreflect.Message {
+	return (*fastReflection_MsgSetEspressoFinalizedState)(x)
+}
+
+func (x *MsgSetEspressoFinalizedState) slowProtoReflect() protoreflect.Message {
+	mi := &file_junction_junction_tx_proto_msgTypes[18]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+var _fastReflection_MsgSetEspressoFinalizedState_messageType fastReflection_MsgSetEspressoFinalizedState_messageType
+var _ protoreflect.MessageType = fastReflection_MsgSetEspressoFinalizedState_messageType{}
+
+type fastReflection_MsgSetEspressoFinalizedState_messageType struct{}
+
+func (x fastReflection_MsgSetEspressoFinalizedState_messageType) Zero() protoreflect.Message {
+	return (*fastReflection_MsgSetEspressoFinalizedState)(nil)
+}
+func (x fastReflection_MsgSetEspressoFinalizedState_messageType) New() protoreflect.Message {
+	return new(fastReflection_MsgSetEspressoFinalizedState)
+}
+func (x fastReflection_MsgSetEspressoFinalizedState_messageType) Descriptor() protoreflect.MessageDescriptor {
+	return md_MsgSetEspressoFinalizedState
+}
+
+// Descriptor returns message descriptor, which contains only the protobuf
+// type information for the message.
+func (x *fastReflection_MsgSetEspressoFinalizedState) Descriptor() protoreflect.MessageDescriptor {
+	return md_MsgSetEspressoFinalizedState
+}
+
+// Type returns the message type, which encapsulates both Go and protobuf
+// type information. If the Go type information is not needed,
+// it is recommended that the message descriptor be used instead.
+func (x *fastReflection_MsgSetEspressoFinalizedState) Type() protoreflect.MessageType {
+	return _fastReflection_MsgSetEspressoFinalizedState_messageType
+}
+
+// New returns a newly allocated and mutable empty message.
+func (x *fastReflection_MsgSetEspressoFinalizedState) New() protoreflect.Message {
+	return new(fastReflection_MsgSetEspressoFinalizedState)
+}
+
+// Interface unwraps the message reflection interface and
+// returns the underlying ProtoMessage interface.
+func (x *fastReflection_MsgSetEspressoFinalizedState) Interface() protoreflect.ProtoMessage {
+	return (*MsgSetEspressoFinalizedState)(x)
+}
+
+// Range iterates over every populated field in an undefined order,
+// calling f for each field descriptor and value encountered.
+// Range returns immediately if f returns false.
+// While iterating, mutating operations may only be performed
+// on the current field descriptor.
+func (x *fastReflection_MsgSetEspressoFinalizedState) Range(f func(protoreflect.FieldDescriptor, protoreflect.Value) bool) {
+	if x.Creator != "" {
+		value := protoreflect.ValueOfString(x.Creator)
+		if !f(fd_MsgSetEspressoFinalizedState_creator, value) {
+			return
+		}
+	}
+	if x.FinalizedState != "" {
+		value := protoreflect.ValueOfString(x.FinalizedState)
+		if !f(fd_MsgSetEspressoFinalizedState_finalizedState, value) {
+			return
+		}
+	}
+	if x.Nounce != uint64(0) {
+		value := protoreflect.ValueOfUint64(x.Nounce)
+		if !f(fd_MsgSetEspressoFinalizedState_nounce, value) {
+			return
+		}
+	}
+}
+
+// Has reports whether a field is populated.
+//
+// Some fields have the property of nullability where it is possible to
+// distinguish between the default value of a field and whether the field
+// was explicitly populated with the default value. Singular message fields,
+// member fields of a oneof, and proto2 scalar fields are nullable. Such
+// fields are populated only if explicitly set.
+//
+// In other cases (aside from the nullable cases above),
+// a proto3 scalar field is populated if it contains a non-zero value, and
+// a repeated field is populated if it is non-empty.
+func (x *fastReflection_MsgSetEspressoFinalizedState) Has(fd protoreflect.FieldDescriptor) bool {
+	switch fd.FullName() {
+	case "junction.junction.MsgSetEspressoFinalizedState.creator":
+		return x.Creator != ""
+	case "junction.junction.MsgSetEspressoFinalizedState.finalizedState":
+		return x.FinalizedState != ""
+	case "junction.junction.MsgSetEspressoFinalizedState.nounce":
+		return x.Nounce != uint64(0)
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: junction.junction.MsgSetEspressoFinalizedState"))
+		}
+		panic(fmt.Errorf("message junction.junction.MsgSetEspressoFinalizedState does not contain field %s", fd.FullName()))
+	}
+}
+
+// Clear clears the field such that a subsequent Has call reports false.
+//
+// Clearing an extension field clears both the extension type and value
+// associated with the given field number.
+//
+// Clear is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_MsgSetEspressoFinalizedState) Clear(fd protoreflect.FieldDescriptor) {
+	switch fd.FullName() {
+	case "junction.junction.MsgSetEspressoFinalizedState.creator":
+		x.Creator = ""
+	case "junction.junction.MsgSetEspressoFinalizedState.finalizedState":
+		x.FinalizedState = ""
+	case "junction.junction.MsgSetEspressoFinalizedState.nounce":
+		x.Nounce = uint64(0)
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: junction.junction.MsgSetEspressoFinalizedState"))
+		}
+		panic(fmt.Errorf("message junction.junction.MsgSetEspressoFinalizedState does not contain field %s", fd.FullName()))
+	}
+}
+
+// Get retrieves the value for a field.
+//
+// For unpopulated scalars, it returns the default value, where
+// the default value of a bytes scalar is guaranteed to be a copy.
+// For unpopulated composite types, it returns an empty, read-only view
+// of the value; to obtain a mutable reference, use Mutable.
+func (x *fastReflection_MsgSetEspressoFinalizedState) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
+	switch descriptor.FullName() {
+	case "junction.junction.MsgSetEspressoFinalizedState.creator":
+		value := x.Creator
+		return protoreflect.ValueOfString(value)
+	case "junction.junction.MsgSetEspressoFinalizedState.finalizedState":
+		value := x.FinalizedState
+		return protoreflect.ValueOfString(value)
+	case "junction.junction.MsgSetEspressoFinalizedState.nounce":
+		value := x.Nounce
+		return protoreflect.ValueOfUint64(value)
+	default:
+		if descriptor.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: junction.junction.MsgSetEspressoFinalizedState"))
+		}
+		panic(fmt.Errorf("message junction.junction.MsgSetEspressoFinalizedState does not contain field %s", descriptor.FullName()))
+	}
+}
+
+// Set stores the value for a field.
+//
+// For a field belonging to a oneof, it implicitly clears any other field
+// that may be currently set within the same oneof.
+// For extension fields, it implicitly stores the provided ExtensionType.
+// When setting a composite type, it is unspecified whether the stored value
+// aliases the source's memory in any way. If the composite value is an
+// empty, read-only value, then it panics.
+//
+// Set is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_MsgSetEspressoFinalizedState) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
+	switch fd.FullName() {
+	case "junction.junction.MsgSetEspressoFinalizedState.creator":
+		x.Creator = value.Interface().(string)
+	case "junction.junction.MsgSetEspressoFinalizedState.finalizedState":
+		x.FinalizedState = value.Interface().(string)
+	case "junction.junction.MsgSetEspressoFinalizedState.nounce":
+		x.Nounce = value.Uint()
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: junction.junction.MsgSetEspressoFinalizedState"))
+		}
+		panic(fmt.Errorf("message junction.junction.MsgSetEspressoFinalizedState does not contain field %s", fd.FullName()))
+	}
+}
+
+// Mutable returns a mutable reference to a composite type.
+//
+// If the field is unpopulated, it may allocate a composite value.
+// For a field belonging to a oneof, it implicitly clears any other field
+// that may be currently set within the same oneof.
+// For extension fields, it implicitly stores the provided ExtensionType
+// if not already stored.
+// It panics if the field does not contain a composite type.
+//
+// Mutable is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_MsgSetEspressoFinalizedState) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
+	switch fd.FullName() {
+	case "junction.junction.MsgSetEspressoFinalizedState.creator":
+		panic(fmt.Errorf("field creator of message junction.junction.MsgSetEspressoFinalizedState is not mutable"))
+	case "junction.junction.MsgSetEspressoFinalizedState.finalizedState":
+		panic(fmt.Errorf("field finalizedState of message junction.junction.MsgSetEspressoFinalizedState is not mutable"))
+	case "junction.junction.MsgSetEspressoFinalizedState.nounce":
+		panic(fmt.Errorf("field nounce of message junction.junction.MsgSetEspressoFinalizedState is not mutable"))
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: junction.junction.MsgSetEspressoFinalizedState"))
+		}
+		panic(fmt.Errorf("message junction.junction.MsgSetEspressoFinalizedState does not contain field %s", fd.FullName()))
+	}
+}
+
+// NewField returns a new value that is assignable to the field
+// for the given descriptor. For scalars, this returns the default value.
+// For lists, maps, and messages, this returns a new, empty, mutable value.
+func (x *fastReflection_MsgSetEspressoFinalizedState) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
+	switch fd.FullName() {
+	case "junction.junction.MsgSetEspressoFinalizedState.creator":
+		return protoreflect.ValueOfString("")
+	case "junction.junction.MsgSetEspressoFinalizedState.finalizedState":
+		return protoreflect.ValueOfString("")
+	case "junction.junction.MsgSetEspressoFinalizedState.nounce":
+		return protoreflect.ValueOfUint64(uint64(0))
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: junction.junction.MsgSetEspressoFinalizedState"))
+		}
+		panic(fmt.Errorf("message junction.junction.MsgSetEspressoFinalizedState does not contain field %s", fd.FullName()))
+	}
+}
+
+// WhichOneof reports which field within the oneof is populated,
+// returning nil if none are populated.
+// It panics if the oneof descriptor does not belong to this message.
+func (x *fastReflection_MsgSetEspressoFinalizedState) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
+	switch d.FullName() {
+	default:
+		panic(fmt.Errorf("%s is not a oneof field in junction.junction.MsgSetEspressoFinalizedState", d.FullName()))
+	}
+	panic("unreachable")
+}
+
+// GetUnknown retrieves the entire list of unknown fields.
+// The caller may only mutate the contents of the RawFields
+// if the mutated bytes are stored back into the message with SetUnknown.
+func (x *fastReflection_MsgSetEspressoFinalizedState) GetUnknown() protoreflect.RawFields {
+	return x.unknownFields
+}
+
+// SetUnknown stores an entire list of unknown fields.
+// The raw fields must be syntactically valid according to the wire format.
+// An implementation may panic if this is not the case.
+// Once stored, the caller must not mutate the content of the RawFields.
+// An empty RawFields may be passed to clear the fields.
+//
+// SetUnknown is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_MsgSetEspressoFinalizedState) SetUnknown(fields protoreflect.RawFields) {
+	x.unknownFields = fields
+}
+
+// IsValid reports whether the message is valid.
+//
+// An invalid message is an empty, read-only value.
+//
+// An invalid message often corresponds to a nil pointer of the concrete
+// message type, but the details are implementation dependent.
+// Validity is not part of the protobuf data model, and may not
+// be preserved in marshaling or other operations.
+func (x *fastReflection_MsgSetEspressoFinalizedState) IsValid() bool {
+	return x != nil
+}
+
+// ProtoMethods returns optional fastReflectionFeature-path implementations of various operations.
+// This method may return nil.
+//
+// The returned methods type is identical to
+// "google.golang.org/protobuf/runtime/protoiface".Methods.
+// Consult the protoiface package documentation for details.
+func (x *fastReflection_MsgSetEspressoFinalizedState) ProtoMethods() *protoiface.Methods {
+	size := func(input protoiface.SizeInput) protoiface.SizeOutput {
+		x := input.Message.Interface().(*MsgSetEspressoFinalizedState)
+		if x == nil {
+			return protoiface.SizeOutput{
+				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+				Size:              0,
+			}
+		}
+		options := runtime.SizeInputToOptions(input)
+		_ = options
+		var n int
+		var l int
+		_ = l
+		l = len(x.Creator)
+		if l > 0 {
+			n += 1 + l + runtime.Sov(uint64(l))
+		}
+		l = len(x.FinalizedState)
+		if l > 0 {
+			n += 1 + l + runtime.Sov(uint64(l))
+		}
+		if x.Nounce != 0 {
+			n += 1 + runtime.Sov(uint64(x.Nounce))
+		}
+		if x.unknownFields != nil {
+			n += len(x.unknownFields)
+		}
+		return protoiface.SizeOutput{
+			NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+			Size:              n,
+		}
+	}
+
+	marshal := func(input protoiface.MarshalInput) (protoiface.MarshalOutput, error) {
+		x := input.Message.Interface().(*MsgSetEspressoFinalizedState)
+		if x == nil {
+			return protoiface.MarshalOutput{
+				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+				Buf:               input.Buf,
+			}, nil
+		}
+		options := runtime.MarshalInputToOptions(input)
+		_ = options
+		size := options.Size(x)
+		dAtA := make([]byte, size)
+		i := len(dAtA)
+		_ = i
+		var l int
+		_ = l
+		if x.unknownFields != nil {
+			i -= len(x.unknownFields)
+			copy(dAtA[i:], x.unknownFields)
+		}
+		if x.Nounce != 0 {
+			i = runtime.EncodeVarint(dAtA, i, uint64(x.Nounce))
+			i--
+			dAtA[i] = 0x18
+		}
+		if len(x.FinalizedState) > 0 {
+			i -= len(x.FinalizedState)
+			copy(dAtA[i:], x.FinalizedState)
+			i = runtime.EncodeVarint(dAtA, i, uint64(len(x.FinalizedState)))
+			i--
+			dAtA[i] = 0x12
+		}
+		if len(x.Creator) > 0 {
+			i -= len(x.Creator)
+			copy(dAtA[i:], x.Creator)
+			i = runtime.EncodeVarint(dAtA, i, uint64(len(x.Creator)))
+			i--
+			dAtA[i] = 0xa
+		}
+		if input.Buf != nil {
+			input.Buf = append(input.Buf, dAtA...)
+		} else {
+			input.Buf = dAtA
+		}
+		return protoiface.MarshalOutput{
+			NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+			Buf:               input.Buf,
+		}, nil
+	}
+	unmarshal := func(input protoiface.UnmarshalInput) (protoiface.UnmarshalOutput, error) {
+		x := input.Message.Interface().(*MsgSetEspressoFinalizedState)
+		if x == nil {
+			return protoiface.UnmarshalOutput{
+				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+				Flags:             input.Flags,
+			}, nil
+		}
+		options := runtime.UnmarshalInputToOptions(input)
+		_ = options
+		dAtA := input.Buf
+		l := len(dAtA)
+		iNdEx := 0
+		for iNdEx < l {
+			preIndex := iNdEx
+			var wire uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+				}
+				if iNdEx >= l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				wire |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			fieldNum := int32(wire >> 3)
+			wireType := int(wire & 0x7)
+			if wireType == 4 {
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgSetEspressoFinalizedState: wiretype end group for non-group")
+			}
+			if fieldNum <= 0 {
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgSetEspressoFinalizedState: illegal tag %d (wire type %d)", fieldNum, wire)
+			}
+			switch fieldNum {
+			case 1:
+				if wireType != 2 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Creator", wireType)
+				}
+				var stringLen uint64
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					stringLen |= uint64(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				intStringLen := int(stringLen)
+				if intStringLen < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				postIndex := iNdEx + intStringLen
+				if postIndex < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				if postIndex > l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				x.Creator = string(dAtA[iNdEx:postIndex])
+				iNdEx = postIndex
+			case 2:
+				if wireType != 2 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field FinalizedState", wireType)
+				}
+				var stringLen uint64
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					stringLen |= uint64(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				intStringLen := int(stringLen)
+				if intStringLen < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				postIndex := iNdEx + intStringLen
+				if postIndex < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				if postIndex > l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				x.FinalizedState = string(dAtA[iNdEx:postIndex])
+				iNdEx = postIndex
+			case 3:
+				if wireType != 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Nounce", wireType)
+				}
+				x.Nounce = 0
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					x.Nounce |= uint64(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+			default:
+				iNdEx = preIndex
+				skippy, err := runtime.Skip(dAtA[iNdEx:])
+				if err != nil {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, err
+				}
+				if (skippy < 0) || (iNdEx+skippy) < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				if (iNdEx + skippy) > l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				if !options.DiscardUnknown {
+					x.unknownFields = append(x.unknownFields, dAtA[iNdEx:iNdEx+skippy]...)
+				}
+				iNdEx += skippy
+			}
+		}
+
+		if iNdEx > l {
+			return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+		}
+		return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, nil
+	}
+	return &protoiface.Methods{
+		NoUnkeyedLiterals: struct{}{},
+		Flags:             protoiface.SupportMarshalDeterministic | protoiface.SupportUnmarshalDiscardUnknown,
+		Size:              size,
+		Marshal:           marshal,
+		Unmarshal:         unmarshal,
+		Merge:             nil,
+		CheckInitialized:  nil,
+	}
+}
+
+var (
+	md_MsgSetEspressoFinalizedStateResponse        protoreflect.MessageDescriptor
+	fd_MsgSetEspressoFinalizedStateResponse_status protoreflect.FieldDescriptor
+)
+
+func init() {
+	file_junction_junction_tx_proto_init()
+	md_MsgSetEspressoFinalizedStateResponse = File_junction_junction_tx_proto.Messages().ByName("MsgSetEspressoFinalizedStateResponse")
+	fd_MsgSetEspressoFinalizedStateResponse_status = md_MsgSetEspressoFinalizedStateResponse.Fields().ByName("status")
+}
+
+var _ protoreflect.Message = (*fastReflection_MsgSetEspressoFinalizedStateResponse)(nil)
+
+type fastReflection_MsgSetEspressoFinalizedStateResponse MsgSetEspressoFinalizedStateResponse
+
+func (x *MsgSetEspressoFinalizedStateResponse) ProtoReflect() protoreflect.Message {
+	return (*fastReflection_MsgSetEspressoFinalizedStateResponse)(x)
+}
+
+func (x *MsgSetEspressoFinalizedStateResponse) slowProtoReflect() protoreflect.Message {
+	mi := &file_junction_junction_tx_proto_msgTypes[19]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+var _fastReflection_MsgSetEspressoFinalizedStateResponse_messageType fastReflection_MsgSetEspressoFinalizedStateResponse_messageType
+var _ protoreflect.MessageType = fastReflection_MsgSetEspressoFinalizedStateResponse_messageType{}
+
+type fastReflection_MsgSetEspressoFinalizedStateResponse_messageType struct{}
+
+func (x fastReflection_MsgSetEspressoFinalizedStateResponse_messageType) Zero() protoreflect.Message {
+	return (*fastReflection_MsgSetEspressoFinalizedStateResponse)(nil)
+}
+func (x fastReflection_MsgSetEspressoFinalizedStateResponse_messageType) New() protoreflect.Message {
+	return new(fastReflection_MsgSetEspressoFinalizedStateResponse)
+}
+func (x fastReflection_MsgSetEspressoFinalizedStateResponse_messageType) Descriptor() protoreflect.MessageDescriptor {
+	return md_MsgSetEspressoFinalizedStateResponse
+}
+
+// Descriptor returns message descriptor, which contains only the protobuf
+// type information for the message.
+func (x *fastReflection_MsgSetEspressoFinalizedStateResponse) Descriptor() protoreflect.MessageDescriptor {
+	return md_MsgSetEspressoFinalizedStateResponse
+}
+
+// Type returns the message type, which encapsulates both Go and protobuf
+// type information. If the Go type information is not needed,
+// it is recommended that the message descriptor be used instead.
+func (x *fastReflection_MsgSetEspressoFinalizedStateResponse) Type() protoreflect.MessageType {
+	return _fastReflection_MsgSetEspressoFinalizedStateResponse_messageType
+}
+
+// New returns a newly allocated and mutable empty message.
+func (x *fastReflection_MsgSetEspressoFinalizedStateResponse) New() protoreflect.Message {
+	return new(fastReflection_MsgSetEspressoFinalizedStateResponse)
+}
+
+// Interface unwraps the message reflection interface and
+// returns the underlying ProtoMessage interface.
+func (x *fastReflection_MsgSetEspressoFinalizedStateResponse) Interface() protoreflect.ProtoMessage {
+	return (*MsgSetEspressoFinalizedStateResponse)(x)
+}
+
+// Range iterates over every populated field in an undefined order,
+// calling f for each field descriptor and value encountered.
+// Range returns immediately if f returns false.
+// While iterating, mutating operations may only be performed
+// on the current field descriptor.
+func (x *fastReflection_MsgSetEspressoFinalizedStateResponse) Range(f func(protoreflect.FieldDescriptor, protoreflect.Value) bool) {
+	if x.Status != false {
+		value := protoreflect.ValueOfBool(x.Status)
+		if !f(fd_MsgSetEspressoFinalizedStateResponse_status, value) {
+			return
+		}
+	}
+}
+
+// Has reports whether a field is populated.
+//
+// Some fields have the property of nullability where it is possible to
+// distinguish between the default value of a field and whether the field
+// was explicitly populated with the default value. Singular message fields,
+// member fields of a oneof, and proto2 scalar fields are nullable. Such
+// fields are populated only if explicitly set.
+//
+// In other cases (aside from the nullable cases above),
+// a proto3 scalar field is populated if it contains a non-zero value, and
+// a repeated field is populated if it is non-empty.
+func (x *fastReflection_MsgSetEspressoFinalizedStateResponse) Has(fd protoreflect.FieldDescriptor) bool {
+	switch fd.FullName() {
+	case "junction.junction.MsgSetEspressoFinalizedStateResponse.status":
+		return x.Status != false
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: junction.junction.MsgSetEspressoFinalizedStateResponse"))
+		}
+		panic(fmt.Errorf("message junction.junction.MsgSetEspressoFinalizedStateResponse does not contain field %s", fd.FullName()))
+	}
+}
+
+// Clear clears the field such that a subsequent Has call reports false.
+//
+// Clearing an extension field clears both the extension type and value
+// associated with the given field number.
+//
+// Clear is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_MsgSetEspressoFinalizedStateResponse) Clear(fd protoreflect.FieldDescriptor) {
+	switch fd.FullName() {
+	case "junction.junction.MsgSetEspressoFinalizedStateResponse.status":
+		x.Status = false
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: junction.junction.MsgSetEspressoFinalizedStateResponse"))
+		}
+		panic(fmt.Errorf("message junction.junction.MsgSetEspressoFinalizedStateResponse does not contain field %s", fd.FullName()))
+	}
+}
+
+// Get retrieves the value for a field.
+//
+// For unpopulated scalars, it returns the default value, where
+// the default value of a bytes scalar is guaranteed to be a copy.
+// For unpopulated composite types, it returns an empty, read-only view
+// of the value; to obtain a mutable reference, use Mutable.
+func (x *fastReflection_MsgSetEspressoFinalizedStateResponse) Get(descriptor protoreflect.FieldDescriptor) protoreflect.Value {
+	switch descriptor.FullName() {
+	case "junction.junction.MsgSetEspressoFinalizedStateResponse.status":
+		value := x.Status
+		return protoreflect.ValueOfBool(value)
+	default:
+		if descriptor.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: junction.junction.MsgSetEspressoFinalizedStateResponse"))
+		}
+		panic(fmt.Errorf("message junction.junction.MsgSetEspressoFinalizedStateResponse does not contain field %s", descriptor.FullName()))
+	}
+}
+
+// Set stores the value for a field.
+//
+// For a field belonging to a oneof, it implicitly clears any other field
+// that may be currently set within the same oneof.
+// For extension fields, it implicitly stores the provided ExtensionType.
+// When setting a composite type, it is unspecified whether the stored value
+// aliases the source's memory in any way. If the composite value is an
+// empty, read-only value, then it panics.
+//
+// Set is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_MsgSetEspressoFinalizedStateResponse) Set(fd protoreflect.FieldDescriptor, value protoreflect.Value) {
+	switch fd.FullName() {
+	case "junction.junction.MsgSetEspressoFinalizedStateResponse.status":
+		x.Status = value.Bool()
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: junction.junction.MsgSetEspressoFinalizedStateResponse"))
+		}
+		panic(fmt.Errorf("message junction.junction.MsgSetEspressoFinalizedStateResponse does not contain field %s", fd.FullName()))
+	}
+}
+
+// Mutable returns a mutable reference to a composite type.
+//
+// If the field is unpopulated, it may allocate a composite value.
+// For a field belonging to a oneof, it implicitly clears any other field
+// that may be currently set within the same oneof.
+// For extension fields, it implicitly stores the provided ExtensionType
+// if not already stored.
+// It panics if the field does not contain a composite type.
+//
+// Mutable is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_MsgSetEspressoFinalizedStateResponse) Mutable(fd protoreflect.FieldDescriptor) protoreflect.Value {
+	switch fd.FullName() {
+	case "junction.junction.MsgSetEspressoFinalizedStateResponse.status":
+		panic(fmt.Errorf("field status of message junction.junction.MsgSetEspressoFinalizedStateResponse is not mutable"))
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: junction.junction.MsgSetEspressoFinalizedStateResponse"))
+		}
+		panic(fmt.Errorf("message junction.junction.MsgSetEspressoFinalizedStateResponse does not contain field %s", fd.FullName()))
+	}
+}
+
+// NewField returns a new value that is assignable to the field
+// for the given descriptor. For scalars, this returns the default value.
+// For lists, maps, and messages, this returns a new, empty, mutable value.
+func (x *fastReflection_MsgSetEspressoFinalizedStateResponse) NewField(fd protoreflect.FieldDescriptor) protoreflect.Value {
+	switch fd.FullName() {
+	case "junction.junction.MsgSetEspressoFinalizedStateResponse.status":
+		return protoreflect.ValueOfBool(false)
+	default:
+		if fd.IsExtension() {
+			panic(fmt.Errorf("proto3 declared messages do not support extensions: junction.junction.MsgSetEspressoFinalizedStateResponse"))
+		}
+		panic(fmt.Errorf("message junction.junction.MsgSetEspressoFinalizedStateResponse does not contain field %s", fd.FullName()))
+	}
+}
+
+// WhichOneof reports which field within the oneof is populated,
+// returning nil if none are populated.
+// It panics if the oneof descriptor does not belong to this message.
+func (x *fastReflection_MsgSetEspressoFinalizedStateResponse) WhichOneof(d protoreflect.OneofDescriptor) protoreflect.FieldDescriptor {
+	switch d.FullName() {
+	default:
+		panic(fmt.Errorf("%s is not a oneof field in junction.junction.MsgSetEspressoFinalizedStateResponse", d.FullName()))
+	}
+	panic("unreachable")
+}
+
+// GetUnknown retrieves the entire list of unknown fields.
+// The caller may only mutate the contents of the RawFields
+// if the mutated bytes are stored back into the message with SetUnknown.
+func (x *fastReflection_MsgSetEspressoFinalizedStateResponse) GetUnknown() protoreflect.RawFields {
+	return x.unknownFields
+}
+
+// SetUnknown stores an entire list of unknown fields.
+// The raw fields must be syntactically valid according to the wire format.
+// An implementation may panic if this is not the case.
+// Once stored, the caller must not mutate the content of the RawFields.
+// An empty RawFields may be passed to clear the fields.
+//
+// SetUnknown is a mutating operation and unsafe for concurrent use.
+func (x *fastReflection_MsgSetEspressoFinalizedStateResponse) SetUnknown(fields protoreflect.RawFields) {
+	x.unknownFields = fields
+}
+
+// IsValid reports whether the message is valid.
+//
+// An invalid message is an empty, read-only value.
+//
+// An invalid message often corresponds to a nil pointer of the concrete
+// message type, but the details are implementation dependent.
+// Validity is not part of the protobuf data model, and may not
+// be preserved in marshaling or other operations.
+func (x *fastReflection_MsgSetEspressoFinalizedStateResponse) IsValid() bool {
+	return x != nil
+}
+
+// ProtoMethods returns optional fastReflectionFeature-path implementations of various operations.
+// This method may return nil.
+//
+// The returned methods type is identical to
+// "google.golang.org/protobuf/runtime/protoiface".Methods.
+// Consult the protoiface package documentation for details.
+func (x *fastReflection_MsgSetEspressoFinalizedStateResponse) ProtoMethods() *protoiface.Methods {
+	size := func(input protoiface.SizeInput) protoiface.SizeOutput {
+		x := input.Message.Interface().(*MsgSetEspressoFinalizedStateResponse)
+		if x == nil {
+			return protoiface.SizeOutput{
+				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+				Size:              0,
+			}
+		}
+		options := runtime.SizeInputToOptions(input)
+		_ = options
+		var n int
+		var l int
+		_ = l
+		if x.Status {
+			n += 2
+		}
+		if x.unknownFields != nil {
+			n += len(x.unknownFields)
+		}
+		return protoiface.SizeOutput{
+			NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+			Size:              n,
+		}
+	}
+
+	marshal := func(input protoiface.MarshalInput) (protoiface.MarshalOutput, error) {
+		x := input.Message.Interface().(*MsgSetEspressoFinalizedStateResponse)
+		if x == nil {
+			return protoiface.MarshalOutput{
+				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+				Buf:               input.Buf,
+			}, nil
+		}
+		options := runtime.MarshalInputToOptions(input)
+		_ = options
+		size := options.Size(x)
+		dAtA := make([]byte, size)
+		i := len(dAtA)
+		_ = i
+		var l int
+		_ = l
+		if x.unknownFields != nil {
+			i -= len(x.unknownFields)
+			copy(dAtA[i:], x.unknownFields)
+		}
+		if x.Status {
+			i--
+			if x.Status {
+				dAtA[i] = 1
+			} else {
+				dAtA[i] = 0
+			}
+			i--
+			dAtA[i] = 0x8
+		}
+		if input.Buf != nil {
+			input.Buf = append(input.Buf, dAtA...)
+		} else {
+			input.Buf = dAtA
+		}
+		return protoiface.MarshalOutput{
+			NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+			Buf:               input.Buf,
+		}, nil
+	}
+	unmarshal := func(input protoiface.UnmarshalInput) (protoiface.UnmarshalOutput, error) {
+		x := input.Message.Interface().(*MsgSetEspressoFinalizedStateResponse)
+		if x == nil {
+			return protoiface.UnmarshalOutput{
+				NoUnkeyedLiterals: input.NoUnkeyedLiterals,
+				Flags:             input.Flags,
+			}, nil
+		}
+		options := runtime.UnmarshalInputToOptions(input)
+		_ = options
+		dAtA := input.Buf
+		l := len(dAtA)
+		iNdEx := 0
+		for iNdEx < l {
+			preIndex := iNdEx
+			var wire uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+				}
+				if iNdEx >= l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				wire |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			fieldNum := int32(wire >> 3)
+			wireType := int(wire & 0x7)
+			if wireType == 4 {
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgSetEspressoFinalizedStateResponse: wiretype end group for non-group")
+			}
+			if fieldNum <= 0 {
+				return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: MsgSetEspressoFinalizedStateResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+			}
+			switch fieldNum {
+			case 1:
+				if wireType != 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, fmt.Errorf("proto: wrong wireType = %d for field Status", wireType)
+				}
+				var v int
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrIntOverflow
+					}
+					if iNdEx >= l {
+						return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					v |= int(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				x.Status = bool(v != 0)
+			default:
+				iNdEx = preIndex
+				skippy, err := runtime.Skip(dAtA[iNdEx:])
+				if err != nil {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, err
+				}
+				if (skippy < 0) || (iNdEx+skippy) < 0 {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, runtime.ErrInvalidLength
+				}
+				if (iNdEx + skippy) > l {
+					return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+				}
+				if !options.DiscardUnknown {
+					x.unknownFields = append(x.unknownFields, dAtA[iNdEx:iNdEx+skippy]...)
+				}
+				iNdEx += skippy
+			}
+		}
+
+		if iNdEx > l {
+			return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, io.ErrUnexpectedEOF
+		}
+		return protoiface.UnmarshalOutput{NoUnkeyedLiterals: input.NoUnkeyedLiterals, Flags: input.Flags}, nil
+	}
+	return &protoiface.Methods{
+		NoUnkeyedLiterals: struct{}{},
+		Flags:             protoiface.SupportMarshalDeterministic | protoiface.SupportUnmarshalDiscardUnknown,
+		Size:              size,
+		Marshal:           marshal,
+		Unmarshal:         unmarshal,
+		Merge:             nil,
+		CheckInitialized:  nil,
+	}
+}
+
 // Code generated by protoc-gen-go. DO NOT EDIT.
 // versions:
 // 	protoc-gen-go v1.27.0
@@ -11987,6 +12930,92 @@ func (x *MsgRemoveTrackResponse) GetSuccess() bool {
 	return false
 }
 
+type MsgSetEspressoFinalizedState struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Creator        string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
+	FinalizedState string `protobuf:"bytes,2,opt,name=finalizedState,proto3" json:"finalizedState,omitempty"`
+	Nounce         uint64 `protobuf:"varint,3,opt,name=nounce,proto3" json:"nounce,omitempty"`
+}
+
+func (x *MsgSetEspressoFinalizedState) Reset() {
+	*x = MsgSetEspressoFinalizedState{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_junction_junction_tx_proto_msgTypes[18]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *MsgSetEspressoFinalizedState) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*MsgSetEspressoFinalizedState) ProtoMessage() {}
+
+// Deprecated: Use MsgSetEspressoFinalizedState.ProtoReflect.Descriptor instead.
+func (*MsgSetEspressoFinalizedState) Descriptor() ([]byte, []int) {
+	return file_junction_junction_tx_proto_rawDescGZIP(), []int{18}
+}
+
+func (x *MsgSetEspressoFinalizedState) GetCreator() string {
+	if x != nil {
+		return x.Creator
+	}
+	return ""
+}
+
+func (x *MsgSetEspressoFinalizedState) GetFinalizedState() string {
+	if x != nil {
+		return x.FinalizedState
+	}
+	return ""
+}
+
+func (x *MsgSetEspressoFinalizedState) GetNounce() uint64 {
+	if x != nil {
+		return x.Nounce
+	}
+	return 0
+}
+
+type MsgSetEspressoFinalizedStateResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Status bool `protobuf:"varint,1,opt,name=status,proto3" json:"status,omitempty"`
+}
+
+func (x *MsgSetEspressoFinalizedStateResponse) Reset() {
+	*x = MsgSetEspressoFinalizedStateResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_junction_junction_tx_proto_msgTypes[19]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *MsgSetEspressoFinalizedStateResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*MsgSetEspressoFinalizedStateResponse) ProtoMessage() {}
+
+// Deprecated: Use MsgSetEspressoFinalizedStateResponse.ProtoReflect.Descriptor instead.
+func (*MsgSetEspressoFinalizedStateResponse) Descriptor() ([]byte, []int) {
+	return file_junction_junction_tx_proto_rawDescGZIP(), []int{19}
+}
+
+func (x *MsgSetEspressoFinalizedStateResponse) GetStatus() bool {
+	if x != nil {
+		return x.Status
+	}
+	return false
+}
+
 var File_junction_junction_tx_proto protoreflect.FileDescriptor
 
 var file_junction_junction_tx_proto_rawDesc = []byte{
@@ -12159,72 +13188,94 @@ var file_junction_junction_tx_proto_rawDesc = []byte{
 	0xe7, 0xb0, 0x2a, 0x07, 0x63, 0x72, 0x65, 0x61, 0x74, 0x6f, 0x72, 0x22, 0x32, 0x0a, 0x16, 0x4d,
 	0x73, 0x67, 0x52, 0x65, 0x6d, 0x6f, 0x76, 0x65, 0x54, 0x72, 0x61, 0x63, 0x6b, 0x52, 0x65, 0x73,
 	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x18, 0x0a, 0x07, 0x73, 0x75, 0x63, 0x63, 0x65, 0x73, 0x73,
-	0x18, 0x01, 0x20, 0x01, 0x28, 0x08, 0x52, 0x07, 0x73, 0x75, 0x63, 0x63, 0x65, 0x73, 0x73, 0x32,
-	0xda, 0x06, 0x0a, 0x03, 0x4d, 0x73, 0x67, 0x12, 0x5e, 0x0a, 0x0c, 0x55, 0x70, 0x64, 0x61, 0x74,
-	0x65, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x12, 0x22, 0x2e, 0x6a, 0x75, 0x6e, 0x63, 0x74, 0x69,
-	0x6f, 0x6e, 0x2e, 0x6a, 0x75, 0x6e, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x4d, 0x73, 0x67, 0x55,
-	0x70, 0x64, 0x61, 0x74, 0x65, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x1a, 0x2a, 0x2e, 0x6a, 0x75,
+	0x18, 0x01, 0x20, 0x01, 0x28, 0x08, 0x52, 0x07, 0x73, 0x75, 0x63, 0x63, 0x65, 0x73, 0x73, 0x22,
+	0x86, 0x01, 0x0a, 0x1c, 0x4d, 0x73, 0x67, 0x53, 0x65, 0x74, 0x45, 0x73, 0x70, 0x72, 0x65, 0x73,
+	0x73, 0x6f, 0x46, 0x69, 0x6e, 0x61, 0x6c, 0x69, 0x7a, 0x65, 0x64, 0x53, 0x74, 0x61, 0x74, 0x65,
+	0x12, 0x18, 0x0a, 0x07, 0x63, 0x72, 0x65, 0x61, 0x74, 0x6f, 0x72, 0x18, 0x01, 0x20, 0x01, 0x28,
+	0x09, 0x52, 0x07, 0x63, 0x72, 0x65, 0x61, 0x74, 0x6f, 0x72, 0x12, 0x26, 0x0a, 0x0e, 0x66, 0x69,
+	0x6e, 0x61, 0x6c, 0x69, 0x7a, 0x65, 0x64, 0x53, 0x74, 0x61, 0x74, 0x65, 0x18, 0x02, 0x20, 0x01,
+	0x28, 0x09, 0x52, 0x0e, 0x66, 0x69, 0x6e, 0x61, 0x6c, 0x69, 0x7a, 0x65, 0x64, 0x53, 0x74, 0x61,
+	0x74, 0x65, 0x12, 0x16, 0x0a, 0x06, 0x6e, 0x6f, 0x75, 0x6e, 0x63, 0x65, 0x18, 0x03, 0x20, 0x01,
+	0x28, 0x04, 0x52, 0x06, 0x6e, 0x6f, 0x75, 0x6e, 0x63, 0x65, 0x3a, 0x0c, 0x82, 0xe7, 0xb0, 0x2a,
+	0x07, 0x63, 0x72, 0x65, 0x61, 0x74, 0x6f, 0x72, 0x22, 0x3e, 0x0a, 0x24, 0x4d, 0x73, 0x67, 0x53,
+	0x65, 0x74, 0x45, 0x73, 0x70, 0x72, 0x65, 0x73, 0x73, 0x6f, 0x46, 0x69, 0x6e, 0x61, 0x6c, 0x69,
+	0x7a, 0x65, 0x64, 0x53, 0x74, 0x61, 0x74, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
+	0x12, 0x16, 0x0a, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28, 0x08,
+	0x52, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x32, 0xe2, 0x07, 0x0a, 0x03, 0x4d, 0x73, 0x67,
+	0x12, 0x5e, 0x0a, 0x0c, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73,
+	0x12, 0x22, 0x2e, 0x6a, 0x75, 0x6e, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x6a, 0x75, 0x6e, 0x63,
+	0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x4d, 0x73, 0x67, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x50, 0x61,
+	0x72, 0x61, 0x6d, 0x73, 0x1a, 0x2a, 0x2e, 0x6a, 0x75, 0x6e, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e,
+	0x6a, 0x75, 0x6e, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x4d, 0x73, 0x67, 0x55, 0x70, 0x64, 0x61,
+	0x74, 0x65, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
+	0x12, 0x5b, 0x0a, 0x0b, 0x49, 0x6e, 0x69, 0x74, 0x53, 0x74, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x12,
+	0x21, 0x2e, 0x6a, 0x75, 0x6e, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x6a, 0x75, 0x6e, 0x63, 0x74,
+	0x69, 0x6f, 0x6e, 0x2e, 0x4d, 0x73, 0x67, 0x49, 0x6e, 0x69, 0x74, 0x53, 0x74, 0x61, 0x74, 0x69,
+	0x6f, 0x6e, 0x1a, 0x29, 0x2e, 0x6a, 0x75, 0x6e, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x6a, 0x75,
+	0x6e, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x4d, 0x73, 0x67, 0x49, 0x6e, 0x69, 0x74, 0x53, 0x74,
+	0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x55, 0x0a,
+	0x09, 0x53, 0x75, 0x62, 0x6d, 0x69, 0x74, 0x50, 0x6f, 0x64, 0x12, 0x1f, 0x2e, 0x6a, 0x75, 0x6e,
+	0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x6a, 0x75, 0x6e, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x4d,
+	0x73, 0x67, 0x53, 0x75, 0x62, 0x6d, 0x69, 0x74, 0x50, 0x6f, 0x64, 0x1a, 0x27, 0x2e, 0x6a, 0x75,
 	0x6e, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x6a, 0x75, 0x6e, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e,
-	0x4d, 0x73, 0x67, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x52,
-	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x5b, 0x0a, 0x0b, 0x49, 0x6e, 0x69, 0x74, 0x53,
-	0x74, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x21, 0x2e, 0x6a, 0x75, 0x6e, 0x63, 0x74, 0x69, 0x6f,
-	0x6e, 0x2e, 0x6a, 0x75, 0x6e, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x4d, 0x73, 0x67, 0x49, 0x6e,
-	0x69, 0x74, 0x53, 0x74, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x1a, 0x29, 0x2e, 0x6a, 0x75, 0x6e, 0x63,
-	0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x6a, 0x75, 0x6e, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x4d, 0x73,
-	0x67, 0x49, 0x6e, 0x69, 0x74, 0x53, 0x74, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x73, 0x70,
-	0x6f, 0x6e, 0x73, 0x65, 0x12, 0x55, 0x0a, 0x09, 0x53, 0x75, 0x62, 0x6d, 0x69, 0x74, 0x50, 0x6f,
+	0x4d, 0x73, 0x67, 0x53, 0x75, 0x62, 0x6d, 0x69, 0x74, 0x50, 0x6f, 0x64, 0x52, 0x65, 0x73, 0x70,
+	0x6f, 0x6e, 0x73, 0x65, 0x12, 0x55, 0x0a, 0x09, 0x56, 0x65, 0x72, 0x69, 0x66, 0x79, 0x50, 0x6f,
 	0x64, 0x12, 0x1f, 0x2e, 0x6a, 0x75, 0x6e, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x6a, 0x75, 0x6e,
-	0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x4d, 0x73, 0x67, 0x53, 0x75, 0x62, 0x6d, 0x69, 0x74, 0x50,
+	0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x4d, 0x73, 0x67, 0x56, 0x65, 0x72, 0x69, 0x66, 0x79, 0x50,
 	0x6f, 0x64, 0x1a, 0x27, 0x2e, 0x6a, 0x75, 0x6e, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x6a, 0x75,
-	0x6e, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x4d, 0x73, 0x67, 0x53, 0x75, 0x62, 0x6d, 0x69, 0x74,
-	0x50, 0x6f, 0x64, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x55, 0x0a, 0x09, 0x56,
-	0x65, 0x72, 0x69, 0x66, 0x79, 0x50, 0x6f, 0x64, 0x12, 0x1f, 0x2e, 0x6a, 0x75, 0x6e, 0x63, 0x74,
-	0x69, 0x6f, 0x6e, 0x2e, 0x6a, 0x75, 0x6e, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x4d, 0x73, 0x67,
-	0x56, 0x65, 0x72, 0x69, 0x66, 0x79, 0x50, 0x6f, 0x64, 0x1a, 0x27, 0x2e, 0x6a, 0x75, 0x6e, 0x63,
-	0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x6a, 0x75, 0x6e, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x4d, 0x73,
-	0x67, 0x56, 0x65, 0x72, 0x69, 0x66, 0x79, 0x50, 0x6f, 0x64, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e,
-	0x73, 0x65, 0x12, 0x5b, 0x0a, 0x0b, 0x49, 0x6e, 0x69, 0x74, 0x69, 0x61, 0x74, 0x65, 0x56, 0x72,
-	0x66, 0x12, 0x21, 0x2e, 0x6a, 0x75, 0x6e, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x6a, 0x75, 0x6e,
-	0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x4d, 0x73, 0x67, 0x49, 0x6e, 0x69, 0x74, 0x69, 0x61, 0x74,
-	0x65, 0x56, 0x72, 0x66, 0x1a, 0x29, 0x2e, 0x6a, 0x75, 0x6e, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e,
-	0x6a, 0x75, 0x6e, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x4d, 0x73, 0x67, 0x49, 0x6e, 0x69, 0x74,
-	0x69, 0x61, 0x74, 0x65, 0x56, 0x72, 0x66, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12,
-	0x5b, 0x0a, 0x0b, 0x56, 0x61, 0x6c, 0x69, 0x64, 0x61, 0x74, 0x65, 0x56, 0x72, 0x66, 0x12, 0x21,
-	0x2e, 0x6a, 0x75, 0x6e, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x6a, 0x75, 0x6e, 0x63, 0x74, 0x69,
-	0x6f, 0x6e, 0x2e, 0x4d, 0x73, 0x67, 0x56, 0x61, 0x6c, 0x69, 0x64, 0x61, 0x74, 0x65, 0x56, 0x72,
-	0x66, 0x1a, 0x29, 0x2e, 0x6a, 0x75, 0x6e, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x6a, 0x75, 0x6e,
-	0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x4d, 0x73, 0x67, 0x56, 0x61, 0x6c, 0x69, 0x64, 0x61, 0x74,
-	0x65, 0x56, 0x72, 0x66, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x6d, 0x0a, 0x11,
-	0x50, 0x72, 0x6f, 0x63, 0x65, 0x73, 0x73, 0x56, 0x72, 0x66, 0x44, 0x69, 0x73, 0x70, 0x75, 0x74,
-	0x65, 0x12, 0x27, 0x2e, 0x6a, 0x75, 0x6e, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x6a, 0x75, 0x6e,
-	0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x4d, 0x73, 0x67, 0x50, 0x72, 0x6f, 0x63, 0x65, 0x73, 0x73,
-	0x56, 0x72, 0x66, 0x44, 0x69, 0x73, 0x70, 0x75, 0x74, 0x65, 0x1a, 0x2f, 0x2e, 0x6a, 0x75, 0x6e,
+	0x6e, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x4d, 0x73, 0x67, 0x56, 0x65, 0x72, 0x69, 0x66, 0x79,
+	0x50, 0x6f, 0x64, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x5b, 0x0a, 0x0b, 0x49,
+	0x6e, 0x69, 0x74, 0x69, 0x61, 0x74, 0x65, 0x56, 0x72, 0x66, 0x12, 0x21, 0x2e, 0x6a, 0x75, 0x6e,
+	0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x6a, 0x75, 0x6e, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x4d,
+	0x73, 0x67, 0x49, 0x6e, 0x69, 0x74, 0x69, 0x61, 0x74, 0x65, 0x56, 0x72, 0x66, 0x1a, 0x29, 0x2e,
+	0x6a, 0x75, 0x6e, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x6a, 0x75, 0x6e, 0x63, 0x74, 0x69, 0x6f,
+	0x6e, 0x2e, 0x4d, 0x73, 0x67, 0x49, 0x6e, 0x69, 0x74, 0x69, 0x61, 0x74, 0x65, 0x56, 0x72, 0x66,
+	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x5b, 0x0a, 0x0b, 0x56, 0x61, 0x6c, 0x69,
+	0x64, 0x61, 0x74, 0x65, 0x56, 0x72, 0x66, 0x12, 0x21, 0x2e, 0x6a, 0x75, 0x6e, 0x63, 0x74, 0x69,
+	0x6f, 0x6e, 0x2e, 0x6a, 0x75, 0x6e, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x4d, 0x73, 0x67, 0x56,
+	0x61, 0x6c, 0x69, 0x64, 0x61, 0x74, 0x65, 0x56, 0x72, 0x66, 0x1a, 0x29, 0x2e, 0x6a, 0x75, 0x6e,
+	0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x6a, 0x75, 0x6e, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x4d,
+	0x73, 0x67, 0x56, 0x61, 0x6c, 0x69, 0x64, 0x61, 0x74, 0x65, 0x56, 0x72, 0x66, 0x52, 0x65, 0x73,
+	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x6d, 0x0a, 0x11, 0x50, 0x72, 0x6f, 0x63, 0x65, 0x73, 0x73,
+	0x56, 0x72, 0x66, 0x44, 0x69, 0x73, 0x70, 0x75, 0x74, 0x65, 0x12, 0x27, 0x2e, 0x6a, 0x75, 0x6e,
 	0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x6a, 0x75, 0x6e, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x4d,
 	0x73, 0x67, 0x50, 0x72, 0x6f, 0x63, 0x65, 0x73, 0x73, 0x56, 0x72, 0x66, 0x44, 0x69, 0x73, 0x70,
-	0x75, 0x74, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x5b, 0x0a, 0x0b, 0x41,
-	0x64, 0x64, 0x4e, 0x65, 0x77, 0x54, 0x72, 0x61, 0x63, 0x6b, 0x12, 0x21, 0x2e, 0x6a, 0x75, 0x6e,
-	0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x6a, 0x75, 0x6e, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x4d,
-	0x73, 0x67, 0x41, 0x64, 0x64, 0x4e, 0x65, 0x77, 0x54, 0x72, 0x61, 0x63, 0x6b, 0x1a, 0x29, 0x2e,
+	0x75, 0x74, 0x65, 0x1a, 0x2f, 0x2e, 0x6a, 0x75, 0x6e, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x6a,
+	0x75, 0x6e, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x4d, 0x73, 0x67, 0x50, 0x72, 0x6f, 0x63, 0x65,
+	0x73, 0x73, 0x56, 0x72, 0x66, 0x44, 0x69, 0x73, 0x70, 0x75, 0x74, 0x65, 0x52, 0x65, 0x73, 0x70,
+	0x6f, 0x6e, 0x73, 0x65, 0x12, 0x5b, 0x0a, 0x0b, 0x41, 0x64, 0x64, 0x4e, 0x65, 0x77, 0x54, 0x72,
+	0x61, 0x63, 0x6b, 0x12, 0x21, 0x2e, 0x6a, 0x75, 0x6e, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x6a,
+	0x75, 0x6e, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x4d, 0x73, 0x67, 0x41, 0x64, 0x64, 0x4e, 0x65,
+	0x77, 0x54, 0x72, 0x61, 0x63, 0x6b, 0x1a, 0x29, 0x2e, 0x6a, 0x75, 0x6e, 0x63, 0x74, 0x69, 0x6f,
+	0x6e, 0x2e, 0x6a, 0x75, 0x6e, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x4d, 0x73, 0x67, 0x41, 0x64,
+	0x64, 0x4e, 0x65, 0x77, 0x54, 0x72, 0x61, 0x63, 0x6b, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
+	0x65, 0x12, 0x5b, 0x0a, 0x0b, 0x52, 0x65, 0x6d, 0x6f, 0x76, 0x65, 0x54, 0x72, 0x61, 0x63, 0x6b,
+	0x12, 0x21, 0x2e, 0x6a, 0x75, 0x6e, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x6a, 0x75, 0x6e, 0x63,
+	0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x4d, 0x73, 0x67, 0x52, 0x65, 0x6d, 0x6f, 0x76, 0x65, 0x54, 0x72,
+	0x61, 0x63, 0x6b, 0x1a, 0x29, 0x2e, 0x6a, 0x75, 0x6e, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x6a,
+	0x75, 0x6e, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x4d, 0x73, 0x67, 0x52, 0x65, 0x6d, 0x6f, 0x76,
+	0x65, 0x54, 0x72, 0x61, 0x63, 0x6b, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x85,
+	0x01, 0x0a, 0x19, 0x53, 0x65, 0x74, 0x45, 0x73, 0x70, 0x72, 0x65, 0x73, 0x73, 0x6f, 0x46, 0x69,
+	0x6e, 0x61, 0x6c, 0x69, 0x7a, 0x65, 0x64, 0x53, 0x74, 0x61, 0x74, 0x65, 0x12, 0x2f, 0x2e, 0x6a,
+	0x75, 0x6e, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x6a, 0x75, 0x6e, 0x63, 0x74, 0x69, 0x6f, 0x6e,
+	0x2e, 0x4d, 0x73, 0x67, 0x53, 0x65, 0x74, 0x45, 0x73, 0x70, 0x72, 0x65, 0x73, 0x73, 0x6f, 0x46,
+	0x69, 0x6e, 0x61, 0x6c, 0x69, 0x7a, 0x65, 0x64, 0x53, 0x74, 0x61, 0x74, 0x65, 0x1a, 0x37, 0x2e,
 	0x6a, 0x75, 0x6e, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x6a, 0x75, 0x6e, 0x63, 0x74, 0x69, 0x6f,
-	0x6e, 0x2e, 0x4d, 0x73, 0x67, 0x41, 0x64, 0x64, 0x4e, 0x65, 0x77, 0x54, 0x72, 0x61, 0x63, 0x6b,
-	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x5b, 0x0a, 0x0b, 0x52, 0x65, 0x6d, 0x6f,
-	0x76, 0x65, 0x54, 0x72, 0x61, 0x63, 0x6b, 0x12, 0x21, 0x2e, 0x6a, 0x75, 0x6e, 0x63, 0x74, 0x69,
-	0x6f, 0x6e, 0x2e, 0x6a, 0x75, 0x6e, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x4d, 0x73, 0x67, 0x52,
-	0x65, 0x6d, 0x6f, 0x76, 0x65, 0x54, 0x72, 0x61, 0x63, 0x6b, 0x1a, 0x29, 0x2e, 0x6a, 0x75, 0x6e,
-	0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x6a, 0x75, 0x6e, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x4d,
-	0x73, 0x67, 0x52, 0x65, 0x6d, 0x6f, 0x76, 0x65, 0x54, 0x72, 0x61, 0x63, 0x6b, 0x52, 0x65, 0x73,
-	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x1a, 0x05, 0x80, 0xe7, 0xb0, 0x2a, 0x01, 0x42, 0xa9, 0x01, 0x0a,
-	0x15, 0x63, 0x6f, 0x6d, 0x2e, 0x6a, 0x75, 0x6e, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x6a, 0x75,
-	0x6e, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x42, 0x07, 0x54, 0x78, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x50,
-	0x01, 0x5a, 0x22, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x73, 0x64, 0x6b, 0x2e, 0x69, 0x6f, 0x2f,
-	0x61, 0x70, 0x69, 0x2f, 0x6a, 0x75, 0x6e, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2f, 0x6a, 0x75, 0x6e,
-	0x63, 0x74, 0x69, 0x6f, 0x6e, 0xa2, 0x02, 0x03, 0x4a, 0x4a, 0x58, 0xaa, 0x02, 0x11, 0x4a, 0x75,
-	0x6e, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x4a, 0x75, 0x6e, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0xca,
-	0x02, 0x11, 0x4a, 0x75, 0x6e, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x5c, 0x4a, 0x75, 0x6e, 0x63, 0x74,
-	0x69, 0x6f, 0x6e, 0xe2, 0x02, 0x1d, 0x4a, 0x75, 0x6e, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x5c, 0x4a,
-	0x75, 0x6e, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x5c, 0x47, 0x50, 0x42, 0x4d, 0x65, 0x74, 0x61, 0x64,
-	0x61, 0x74, 0x61, 0xea, 0x02, 0x12, 0x4a, 0x75, 0x6e, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x3a, 0x3a,
-	0x4a, 0x75, 0x6e, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x6e, 0x2e, 0x4d, 0x73, 0x67, 0x53, 0x65, 0x74, 0x45, 0x73, 0x70, 0x72, 0x65, 0x73, 0x73, 0x6f,
+	0x46, 0x69, 0x6e, 0x61, 0x6c, 0x69, 0x7a, 0x65, 0x64, 0x53, 0x74, 0x61, 0x74, 0x65, 0x52, 0x65,
+	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x1a, 0x05, 0x80, 0xe7, 0xb0, 0x2a, 0x01, 0x42, 0xa9, 0x01,
+	0x0a, 0x15, 0x63, 0x6f, 0x6d, 0x2e, 0x6a, 0x75, 0x6e, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x6a,
+	0x75, 0x6e, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x42, 0x07, 0x54, 0x78, 0x50, 0x72, 0x6f, 0x74, 0x6f,
+	0x50, 0x01, 0x5a, 0x22, 0x63, 0x6f, 0x73, 0x6d, 0x6f, 0x73, 0x73, 0x64, 0x6b, 0x2e, 0x69, 0x6f,
+	0x2f, 0x61, 0x70, 0x69, 0x2f, 0x6a, 0x75, 0x6e, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2f, 0x6a, 0x75,
+	0x6e, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0xa2, 0x02, 0x03, 0x4a, 0x4a, 0x58, 0xaa, 0x02, 0x11, 0x4a,
+	0x75, 0x6e, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x4a, 0x75, 0x6e, 0x63, 0x74, 0x69, 0x6f, 0x6e,
+	0xca, 0x02, 0x11, 0x4a, 0x75, 0x6e, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x5c, 0x4a, 0x75, 0x6e, 0x63,
+	0x74, 0x69, 0x6f, 0x6e, 0xe2, 0x02, 0x1d, 0x4a, 0x75, 0x6e, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x5c,
+	0x4a, 0x75, 0x6e, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x5c, 0x47, 0x50, 0x42, 0x4d, 0x65, 0x74, 0x61,
+	0x64, 0x61, 0x74, 0x61, 0xea, 0x02, 0x12, 0x4a, 0x75, 0x6e, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x3a,
+	0x3a, 0x4a, 0x75, 0x6e, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f,
+	0x33,
 }
 
 var (
@@ -12239,30 +13290,32 @@ func file_junction_junction_tx_proto_rawDescGZIP() []byte {
 	return file_junction_junction_tx_proto_rawDescData
 }
 
-var file_junction_junction_tx_proto_msgTypes = make([]protoimpl.MessageInfo, 18)
+var file_junction_junction_tx_proto_msgTypes = make([]protoimpl.MessageInfo, 20)
 var file_junction_junction_tx_proto_goTypes = []interface{}{
-	(*MsgUpdateParams)(nil),              // 0: junction.junction.MsgUpdateParams
-	(*MsgUpdateParamsResponse)(nil),      // 1: junction.junction.MsgUpdateParamsResponse
-	(*MsgInitStation)(nil),               // 2: junction.junction.MsgInitStation
-	(*MsgInitStationResponse)(nil),       // 3: junction.junction.MsgInitStationResponse
-	(*MsgSubmitPod)(nil),                 // 4: junction.junction.MsgSubmitPod
-	(*MsgSubmitPodResponse)(nil),         // 5: junction.junction.MsgSubmitPodResponse
-	(*MsgVerifyPod)(nil),                 // 6: junction.junction.MsgVerifyPod
-	(*MsgVerifyPodResponse)(nil),         // 7: junction.junction.MsgVerifyPodResponse
-	(*MsgInitiateVrf)(nil),               // 8: junction.junction.MsgInitiateVrf
-	(*MsgInitiateVrfResponse)(nil),       // 9: junction.junction.MsgInitiateVrfResponse
-	(*MsgValidateVrf)(nil),               // 10: junction.junction.MsgValidateVrf
-	(*MsgValidateVrfResponse)(nil),       // 11: junction.junction.MsgValidateVrfResponse
-	(*MsgProcessVrfDispute)(nil),         // 12: junction.junction.MsgProcessVrfDispute
-	(*MsgProcessVrfDisputeResponse)(nil), // 13: junction.junction.MsgProcessVrfDisputeResponse
-	(*MsgAddNewTrack)(nil),               // 14: junction.junction.MsgAddNewTrack
-	(*MsgAddNewTrackResponse)(nil),       // 15: junction.junction.MsgAddNewTrackResponse
-	(*MsgRemoveTrack)(nil),               // 16: junction.junction.MsgRemoveTrack
-	(*MsgRemoveTrackResponse)(nil),       // 17: junction.junction.MsgRemoveTrackResponse
-	(*Params)(nil),                       // 18: junction.junction.Params
+	(*MsgUpdateParams)(nil),                      // 0: junction.junction.MsgUpdateParams
+	(*MsgUpdateParamsResponse)(nil),              // 1: junction.junction.MsgUpdateParamsResponse
+	(*MsgInitStation)(nil),                       // 2: junction.junction.MsgInitStation
+	(*MsgInitStationResponse)(nil),               // 3: junction.junction.MsgInitStationResponse
+	(*MsgSubmitPod)(nil),                         // 4: junction.junction.MsgSubmitPod
+	(*MsgSubmitPodResponse)(nil),                 // 5: junction.junction.MsgSubmitPodResponse
+	(*MsgVerifyPod)(nil),                         // 6: junction.junction.MsgVerifyPod
+	(*MsgVerifyPodResponse)(nil),                 // 7: junction.junction.MsgVerifyPodResponse
+	(*MsgInitiateVrf)(nil),                       // 8: junction.junction.MsgInitiateVrf
+	(*MsgInitiateVrfResponse)(nil),               // 9: junction.junction.MsgInitiateVrfResponse
+	(*MsgValidateVrf)(nil),                       // 10: junction.junction.MsgValidateVrf
+	(*MsgValidateVrfResponse)(nil),               // 11: junction.junction.MsgValidateVrfResponse
+	(*MsgProcessVrfDispute)(nil),                 // 12: junction.junction.MsgProcessVrfDispute
+	(*MsgProcessVrfDisputeResponse)(nil),         // 13: junction.junction.MsgProcessVrfDisputeResponse
+	(*MsgAddNewTrack)(nil),                       // 14: junction.junction.MsgAddNewTrack
+	(*MsgAddNewTrackResponse)(nil),               // 15: junction.junction.MsgAddNewTrackResponse
+	(*MsgRemoveTrack)(nil),                       // 16: junction.junction.MsgRemoveTrack
+	(*MsgRemoveTrackResponse)(nil),               // 17: junction.junction.MsgRemoveTrackResponse
+	(*MsgSetEspressoFinalizedState)(nil),         // 18: junction.junction.MsgSetEspressoFinalizedState
+	(*MsgSetEspressoFinalizedStateResponse)(nil), // 19: junction.junction.MsgSetEspressoFinalizedStateResponse
+	(*Params)(nil),                               // 20: junction.junction.Params
 }
 var file_junction_junction_tx_proto_depIdxs = []int32{
-	18, // 0: junction.junction.MsgUpdateParams.params:type_name -> junction.junction.Params
+	20, // 0: junction.junction.MsgUpdateParams.params:type_name -> junction.junction.Params
 	0,  // 1: junction.junction.Msg.UpdateParams:input_type -> junction.junction.MsgUpdateParams
 	2,  // 2: junction.junction.Msg.InitStation:input_type -> junction.junction.MsgInitStation
 	4,  // 3: junction.junction.Msg.SubmitPod:input_type -> junction.junction.MsgSubmitPod
@@ -12272,17 +13325,19 @@ var file_junction_junction_tx_proto_depIdxs = []int32{
 	12, // 7: junction.junction.Msg.ProcessVrfDispute:input_type -> junction.junction.MsgProcessVrfDispute
 	14, // 8: junction.junction.Msg.AddNewTrack:input_type -> junction.junction.MsgAddNewTrack
 	16, // 9: junction.junction.Msg.RemoveTrack:input_type -> junction.junction.MsgRemoveTrack
-	1,  // 10: junction.junction.Msg.UpdateParams:output_type -> junction.junction.MsgUpdateParamsResponse
-	3,  // 11: junction.junction.Msg.InitStation:output_type -> junction.junction.MsgInitStationResponse
-	5,  // 12: junction.junction.Msg.SubmitPod:output_type -> junction.junction.MsgSubmitPodResponse
-	7,  // 13: junction.junction.Msg.VerifyPod:output_type -> junction.junction.MsgVerifyPodResponse
-	9,  // 14: junction.junction.Msg.InitiateVrf:output_type -> junction.junction.MsgInitiateVrfResponse
-	11, // 15: junction.junction.Msg.ValidateVrf:output_type -> junction.junction.MsgValidateVrfResponse
-	13, // 16: junction.junction.Msg.ProcessVrfDispute:output_type -> junction.junction.MsgProcessVrfDisputeResponse
-	15, // 17: junction.junction.Msg.AddNewTrack:output_type -> junction.junction.MsgAddNewTrackResponse
-	17, // 18: junction.junction.Msg.RemoveTrack:output_type -> junction.junction.MsgRemoveTrackResponse
-	10, // [10:19] is the sub-list for method output_type
-	1,  // [1:10] is the sub-list for method input_type
+	18, // 10: junction.junction.Msg.SetEspressoFinalizedState:input_type -> junction.junction.MsgSetEspressoFinalizedState
+	1,  // 11: junction.junction.Msg.UpdateParams:output_type -> junction.junction.MsgUpdateParamsResponse
+	3,  // 12: junction.junction.Msg.InitStation:output_type -> junction.junction.MsgInitStationResponse
+	5,  // 13: junction.junction.Msg.SubmitPod:output_type -> junction.junction.MsgSubmitPodResponse
+	7,  // 14: junction.junction.Msg.VerifyPod:output_type -> junction.junction.MsgVerifyPodResponse
+	9,  // 15: junction.junction.Msg.InitiateVrf:output_type -> junction.junction.MsgInitiateVrfResponse
+	11, // 16: junction.junction.Msg.ValidateVrf:output_type -> junction.junction.MsgValidateVrfResponse
+	13, // 17: junction.junction.Msg.ProcessVrfDispute:output_type -> junction.junction.MsgProcessVrfDisputeResponse
+	15, // 18: junction.junction.Msg.AddNewTrack:output_type -> junction.junction.MsgAddNewTrackResponse
+	17, // 19: junction.junction.Msg.RemoveTrack:output_type -> junction.junction.MsgRemoveTrackResponse
+	19, // 20: junction.junction.Msg.SetEspressoFinalizedState:output_type -> junction.junction.MsgSetEspressoFinalizedStateResponse
+	11, // [11:21] is the sub-list for method output_type
+	1,  // [1:11] is the sub-list for method input_type
 	1,  // [1:1] is the sub-list for extension type_name
 	1,  // [1:1] is the sub-list for extension extendee
 	0,  // [0:1] is the sub-list for field type_name
@@ -12511,6 +13566,30 @@ func file_junction_junction_tx_proto_init() {
 				return nil
 			}
 		}
+		file_junction_junction_tx_proto_msgTypes[18].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*MsgSetEspressoFinalizedState); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_junction_junction_tx_proto_msgTypes[19].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*MsgSetEspressoFinalizedStateResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
@@ -12518,7 +13597,7 @@ func file_junction_junction_tx_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_junction_junction_tx_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   18,
+			NumMessages:   20,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

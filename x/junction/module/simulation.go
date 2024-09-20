@@ -55,6 +55,10 @@ const (
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgRemoveTrack int = 100
 
+	opWeightMsgSetEspressoFinalizedState = "op_weight_msg_set_espresso_finalized_state"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgSetEspressoFinalizedState int = 100
+
 	// this line is used by starport scaffolding # simapp/module/const
 )
 
@@ -171,6 +175,17 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 		junctionsimulation.SimulateMsgRemoveTrack(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
+	var weightMsgSetEspressoFinalizedState int
+	simState.AppParams.GetOrGenerate(opWeightMsgSetEspressoFinalizedState, &weightMsgSetEspressoFinalizedState, nil,
+		func(_ *rand.Rand) {
+			weightMsgSetEspressoFinalizedState = defaultWeightMsgSetEspressoFinalizedState
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgSetEspressoFinalizedState,
+		junctionsimulation.SimulateMsgSetEspressoFinalizedState(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
 	// this line is used by starport scaffolding # simapp/module/operation
 
 	return operations
@@ -240,6 +255,14 @@ func (am AppModule) ProposalMsgs(simState module.SimulationState) []simtypes.Wei
 			defaultWeightMsgRemoveTrack,
 			func(r *rand.Rand, ctx sdk.Context, accs []simtypes.Account) sdk.Msg {
 				junctionsimulation.SimulateMsgRemoveTrack(am.accountKeeper, am.bankKeeper, am.keeper)
+				return nil
+			},
+		),
+		simulation.NewWeightedProposalMsg(
+			opWeightMsgSetEspressoFinalizedState,
+			defaultWeightMsgSetEspressoFinalizedState,
+			func(r *rand.Rand, ctx sdk.Context, accs []simtypes.Account) sdk.Msg {
+				junctionsimulation.SimulateMsgSetEspressoFinalizedState(am.accountKeeper, am.bankKeeper, am.keeper)
 				return nil
 			},
 		),

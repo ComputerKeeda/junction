@@ -139,6 +139,12 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 					Short:          "Send a remove_track tx",
 					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "stationId"}, {ProtoField: "trackAddress"}, {ProtoField: "signatures"}, {ProtoField: "votes"}, {ProtoField: "publicKeys"}},
 				},
+				{
+					RpcMethod:      "SetEspressoFinalizedState",
+					Use:            "set-espresso-finalized-state [finalized-state] [nounce]",
+					Short:          "Send a set_espresso_finalized_state tx",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "finalizedState"}, {ProtoField: "nounce"}},
+				},
 				// this line is used by ignite scaffolding # autocli/tx
 			},
 		},

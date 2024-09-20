@@ -8,6 +8,7 @@ package junction
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -19,15 +20,16 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Msg_UpdateParams_FullMethodName      = "/junction.junction.Msg/UpdateParams"
-	Msg_InitStation_FullMethodName       = "/junction.junction.Msg/InitStation"
-	Msg_SubmitPod_FullMethodName         = "/junction.junction.Msg/SubmitPod"
-	Msg_VerifyPod_FullMethodName         = "/junction.junction.Msg/VerifyPod"
-	Msg_InitiateVrf_FullMethodName       = "/junction.junction.Msg/InitiateVrf"
-	Msg_ValidateVrf_FullMethodName       = "/junction.junction.Msg/ValidateVrf"
-	Msg_ProcessVrfDispute_FullMethodName = "/junction.junction.Msg/ProcessVrfDispute"
-	Msg_AddNewTrack_FullMethodName       = "/junction.junction.Msg/AddNewTrack"
-	Msg_RemoveTrack_FullMethodName       = "/junction.junction.Msg/RemoveTrack"
+	Msg_UpdateParams_FullMethodName              = "/junction.junction.Msg/UpdateParams"
+	Msg_InitStation_FullMethodName               = "/junction.junction.Msg/InitStation"
+	Msg_SubmitPod_FullMethodName                 = "/junction.junction.Msg/SubmitPod"
+	Msg_VerifyPod_FullMethodName                 = "/junction.junction.Msg/VerifyPod"
+	Msg_InitiateVrf_FullMethodName               = "/junction.junction.Msg/InitiateVrf"
+	Msg_ValidateVrf_FullMethodName               = "/junction.junction.Msg/ValidateVrf"
+	Msg_ProcessVrfDispute_FullMethodName         = "/junction.junction.Msg/ProcessVrfDispute"
+	Msg_AddNewTrack_FullMethodName               = "/junction.junction.Msg/AddNewTrack"
+	Msg_RemoveTrack_FullMethodName               = "/junction.junction.Msg/RemoveTrack"
+	Msg_SetEspressoFinalizedState_FullMethodName = "/junction.junction.Msg/SetEspressoFinalizedState"
 )
 
 // MsgClient is the client API for Msg service.
@@ -45,6 +47,7 @@ type MsgClient interface {
 	ProcessVrfDispute(ctx context.Context, in *MsgProcessVrfDispute, opts ...grpc.CallOption) (*MsgProcessVrfDisputeResponse, error)
 	AddNewTrack(ctx context.Context, in *MsgAddNewTrack, opts ...grpc.CallOption) (*MsgAddNewTrackResponse, error)
 	RemoveTrack(ctx context.Context, in *MsgRemoveTrack, opts ...grpc.CallOption) (*MsgRemoveTrackResponse, error)
+	SetEspressoFinalizedState(ctx context.Context, in *MsgSetEspressoFinalizedState, opts ...grpc.CallOption) (*MsgSetEspressoFinalizedStateResponse, error)
 }
 
 type msgClient struct {
@@ -136,6 +139,15 @@ func (c *msgClient) RemoveTrack(ctx context.Context, in *MsgRemoveTrack, opts ..
 	return out, nil
 }
 
+func (c *msgClient) SetEspressoFinalizedState(ctx context.Context, in *MsgSetEspressoFinalizedState, opts ...grpc.CallOption) (*MsgSetEspressoFinalizedStateResponse, error) {
+	out := new(MsgSetEspressoFinalizedStateResponse)
+	err := c.cc.Invoke(ctx, Msg_SetEspressoFinalizedState_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MsgServer is the server API for Msg service.
 // All implementations must embed UnimplementedMsgServer
 // for forward compatibility
@@ -151,6 +163,7 @@ type MsgServer interface {
 	ProcessVrfDispute(context.Context, *MsgProcessVrfDispute) (*MsgProcessVrfDisputeResponse, error)
 	AddNewTrack(context.Context, *MsgAddNewTrack) (*MsgAddNewTrackResponse, error)
 	RemoveTrack(context.Context, *MsgRemoveTrack) (*MsgRemoveTrackResponse, error)
+	SetEspressoFinalizedState(context.Context, *MsgSetEspressoFinalizedState) (*MsgSetEspressoFinalizedStateResponse, error)
 	mustEmbedUnimplementedMsgServer()
 }
 
@@ -184,6 +197,9 @@ func (UnimplementedMsgServer) AddNewTrack(context.Context, *MsgAddNewTrack) (*Ms
 }
 func (UnimplementedMsgServer) RemoveTrack(context.Context, *MsgRemoveTrack) (*MsgRemoveTrackResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RemoveTrack not implemented")
+}
+func (UnimplementedMsgServer) SetEspressoFinalizedState(context.Context, *MsgSetEspressoFinalizedState) (*MsgSetEspressoFinalizedStateResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SetEspressoFinalizedState not implemented")
 }
 func (UnimplementedMsgServer) mustEmbedUnimplementedMsgServer() {}
 
@@ -360,6 +376,24 @@ func _Msg_RemoveTrack_Handler(srv interface{}, ctx context.Context, dec func(int
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Msg_SetEspressoFinalizedState_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgSetEspressoFinalizedState)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).SetEspressoFinalizedState(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_SetEspressoFinalizedState_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).SetEspressoFinalizedState(ctx, req.(*MsgSetEspressoFinalizedState))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Msg_ServiceDesc is the grpc.ServiceDesc for Msg service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -402,6 +436,10 @@ var Msg_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "RemoveTrack",
 			Handler:    _Msg_RemoveTrack_Handler,
+		},
+		{
+			MethodName: "SetEspressoFinalizedState",
+			Handler:    _Msg_SetEspressoFinalizedState_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
