@@ -28,6 +28,12 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 					RpcMethod: "UpdateParams",
 					Skip:      true, // skipped because authority gated
 				},
+				{
+					RpcMethod:      "TrackCreation",
+					Use:            "track-creation [track-name] [track-id] [version] [schema] [status]",
+					Short:          "Send a track-creation tx",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "trackName"}, {ProtoField: "trackId"}, {ProtoField: "version"}, {ProtoField: "schema"}, {ProtoField: "status"}},
+				},
 				// this line is used by ignite scaffolding # autocli/tx
 			},
 		},

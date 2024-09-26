@@ -1,4 +1,5 @@
 syntax = "proto3";
+
 package junction.trackgate;
 
 import "amino/amino.proto";
@@ -15,26 +16,38 @@ service Msg {
 
   // UpdateParams defines a (governance) operation for updating the module
   // parameters. The authority defaults to the x/gov module account.
-  rpc UpdateParams(MsgUpdateParams) returns (MsgUpdateParamsResponse);
+  rpc UpdateParams  (MsgUpdateParams) returns (MsgUpdateParamsResponse);
+  rpc TrackCreation (MsgTrackCreation) returns (MsgTrackCreationResponse);
 }
-
 // MsgUpdateParams is the Msg/UpdateParams request type.
 message MsgUpdateParams {
   option (cosmos.msg.v1.signer) = "authority";
-  option (amino.name) = "junction/x/trackgate/MsgUpdateParams";
+  option           (amino.name) = "junction/x/trackgate/MsgUpdateParams";
 
   // authority is the address that controls the module (defaults to x/gov unless overwritten).
   string authority = 1 [(cosmos_proto.scalar) = "cosmos.AddressString"];
 
   // params defines the module parameters to update.
-  //
+
   // NOTE: All parameters must be supplied.
-  Params params = 2 [
-    (gogoproto.nullable) = false,
-    (amino.dont_omitempty) = true
-  ];
+  Params params = 2 [(gogoproto.nullable) = false, (amino.dont_omitempty) = true];
 }
 
 // MsgUpdateParamsResponse defines the response structure for executing a
 // MsgUpdateParams message.
 message MsgUpdateParamsResponse {}
+
+message MsgTrackCreation {
+  option (cosmos.msg.v1.signer) = "creator";
+  string creator = 1;
+  string trackName = 2;
+  string trackId = 3;
+  string version = 4;
+  bytes schema = 5;
+}
+
+message MsgTrackCreationResponse {
+  string trackKey = 1;
+  bool   status = 2;
+}
+

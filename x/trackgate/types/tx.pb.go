@@ -6,10 +6,6 @@ package types
 import (
 	context "context"
 	fmt "fmt"
-	io "io"
-	math "math"
-	math_bits "math/bits"
-
 	_ "github.com/cosmos/cosmos-proto"
 	_ "github.com/cosmos/cosmos-sdk/types/msgservice"
 	_ "github.com/cosmos/cosmos-sdk/types/tx/amino"
@@ -19,6 +15,9 @@ import (
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
+	io "io"
+	math "math"
+	math_bits "math/bits"
 )
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -36,8 +35,6 @@ const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 type MsgUpdateParams struct {
 	// authority is the address that controls the module (defaults to x/gov unless overwritten).
 	Authority string `protobuf:"bytes,1,opt,name=authority,proto3" json:"authority,omitempty"`
-	// params defines the module parameters to update.
-	//
 	// NOTE: All parameters must be supplied.
 	Params Params `protobuf:"bytes,2,opt,name=params,proto3" json:"params"`
 }
@@ -127,38 +124,177 @@ func (m *MsgUpdateParamsResponse) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_MsgUpdateParamsResponse proto.InternalMessageInfo
 
+type MsgTrackCreation struct {
+	Creator   string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
+	TrackName string `protobuf:"bytes,2,opt,name=trackName,proto3" json:"trackName,omitempty"`
+	TrackId   string `protobuf:"bytes,3,opt,name=trackId,proto3" json:"trackId,omitempty"`
+	Version   string `protobuf:"bytes,4,opt,name=version,proto3" json:"version,omitempty"`
+	Schema    []byte `protobuf:"bytes,5,opt,name=schema,proto3" json:"schema,omitempty"`
+}
+
+func (m *MsgTrackCreation) Reset()         { *m = MsgTrackCreation{} }
+func (m *MsgTrackCreation) String() string { return proto.CompactTextString(m) }
+func (*MsgTrackCreation) ProtoMessage()    {}
+func (*MsgTrackCreation) Descriptor() ([]byte, []int) {
+	return fileDescriptor_bb6d36c11e48473e, []int{2}
+}
+func (m *MsgTrackCreation) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgTrackCreation) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgTrackCreation.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgTrackCreation) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgTrackCreation.Merge(m, src)
+}
+func (m *MsgTrackCreation) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgTrackCreation) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgTrackCreation.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgTrackCreation proto.InternalMessageInfo
+
+func (m *MsgTrackCreation) GetCreator() string {
+	if m != nil {
+		return m.Creator
+	}
+	return ""
+}
+
+func (m *MsgTrackCreation) GetTrackName() string {
+	if m != nil {
+		return m.TrackName
+	}
+	return ""
+}
+
+func (m *MsgTrackCreation) GetTrackId() string {
+	if m != nil {
+		return m.TrackId
+	}
+	return ""
+}
+
+func (m *MsgTrackCreation) GetVersion() string {
+	if m != nil {
+		return m.Version
+	}
+	return ""
+}
+
+func (m *MsgTrackCreation) GetSchema() []byte {
+	if m != nil {
+		return m.Schema
+	}
+	return nil
+}
+
+type MsgTrackCreationResponse struct {
+	TrackKey string `protobuf:"bytes,1,opt,name=trackKey,proto3" json:"trackKey,omitempty"`
+	Status   bool   `protobuf:"varint,2,opt,name=status,proto3" json:"status,omitempty"`
+}
+
+func (m *MsgTrackCreationResponse) Reset()         { *m = MsgTrackCreationResponse{} }
+func (m *MsgTrackCreationResponse) String() string { return proto.CompactTextString(m) }
+func (*MsgTrackCreationResponse) ProtoMessage()    {}
+func (*MsgTrackCreationResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_bb6d36c11e48473e, []int{3}
+}
+func (m *MsgTrackCreationResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgTrackCreationResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgTrackCreationResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgTrackCreationResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgTrackCreationResponse.Merge(m, src)
+}
+func (m *MsgTrackCreationResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgTrackCreationResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgTrackCreationResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgTrackCreationResponse proto.InternalMessageInfo
+
+func (m *MsgTrackCreationResponse) GetTrackKey() string {
+	if m != nil {
+		return m.TrackKey
+	}
+	return ""
+}
+
+func (m *MsgTrackCreationResponse) GetStatus() bool {
+	if m != nil {
+		return m.Status
+	}
+	return false
+}
+
 func init() {
 	proto.RegisterType((*MsgUpdateParams)(nil), "junction.trackgate.MsgUpdateParams")
 	proto.RegisterType((*MsgUpdateParamsResponse)(nil), "junction.trackgate.MsgUpdateParamsResponse")
+	proto.RegisterType((*MsgTrackCreation)(nil), "junction.trackgate.MsgTrackCreation")
+	proto.RegisterType((*MsgTrackCreationResponse)(nil), "junction.trackgate.MsgTrackCreationResponse")
 }
 
 func init() { proto.RegisterFile("junction/trackgate/tx.proto", fileDescriptor_bb6d36c11e48473e) }
 
 var fileDescriptor_bb6d36c11e48473e = []byte{
-	// 355 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x92, 0xce, 0x2a, 0xcd, 0x4b,
-	0x2e, 0xc9, 0xcc, 0xcf, 0xd3, 0x2f, 0x29, 0x4a, 0x4c, 0xce, 0x4e, 0x4f, 0x2c, 0x49, 0xd5, 0x2f,
-	0xa9, 0xd0, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0x12, 0x82, 0x49, 0xea, 0xc1, 0x25, 0xa5, 0x04,
-	0x13, 0x73, 0x33, 0xf3, 0xf2, 0xf5, 0xc1, 0x24, 0x44, 0x99, 0x94, 0x78, 0x72, 0x7e, 0x71, 0x6e,
-	0x7e, 0xb1, 0x7e, 0x6e, 0x71, 0xba, 0x7e, 0x99, 0x21, 0x88, 0x82, 0x4a, 0x48, 0x42, 0x24, 0xe2,
-	0xc1, 0x3c, 0x7d, 0x08, 0x07, 0x2a, 0x25, 0x92, 0x9e, 0x9f, 0x9e, 0x0f, 0x11, 0x07, 0xb1, 0xa0,
-	0xa2, 0xf2, 0x58, 0x5c, 0x53, 0x90, 0x58, 0x94, 0x98, 0x0b, 0xd5, 0xa6, 0x74, 0x90, 0x91, 0x8b,
-	0xdf, 0xb7, 0x38, 0x3d, 0xb4, 0x20, 0x25, 0xb1, 0x24, 0x35, 0x00, 0x2c, 0x23, 0x64, 0xc6, 0xc5,
-	0x99, 0x58, 0x5a, 0x92, 0x91, 0x5f, 0x94, 0x59, 0x52, 0x29, 0xc1, 0xa8, 0xc0, 0xa8, 0xc1, 0xe9,
-	0x24, 0x71, 0x69, 0x8b, 0xae, 0x08, 0xd4, 0x3e, 0xc7, 0x94, 0x94, 0xa2, 0xd4, 0xe2, 0xe2, 0xe0,
-	0x92, 0xa2, 0xcc, 0xbc, 0xf4, 0x20, 0x84, 0x52, 0x21, 0x5b, 0x2e, 0x36, 0x88, 0xd9, 0x12, 0x4c,
-	0x0a, 0x8c, 0x1a, 0xdc, 0x46, 0x52, 0x7a, 0x98, 0xde, 0xd5, 0x83, 0xd8, 0xe1, 0xc4, 0x79, 0xe2,
-	0x9e, 0x3c, 0xc3, 0x8a, 0xe7, 0x1b, 0xb4, 0x18, 0x83, 0xa0, 0x9a, 0xac, 0xcc, 0x9b, 0x9e, 0x6f,
-	0xd0, 0x42, 0x18, 0xd7, 0xf5, 0x7c, 0x83, 0x96, 0x0a, 0xdc, 0xf9, 0x15, 0x48, 0x1e, 0x40, 0x73,
-	0xaf, 0x92, 0x24, 0x97, 0x38, 0x9a, 0x50, 0x50, 0x6a, 0x71, 0x41, 0x7e, 0x5e, 0x71, 0xaa, 0x51,
-	0x1e, 0x17, 0xb3, 0x6f, 0x71, 0xba, 0x50, 0x02, 0x17, 0x0f, 0x8a, 0x0f, 0x95, 0xb1, 0xb9, 0x0c,
-	0xcd, 0x0c, 0x29, 0x6d, 0x22, 0x14, 0xc1, 0x2c, 0x92, 0x62, 0x6d, 0x00, 0xf9, 0xc5, 0x29, 0xf0,
-	0xc4, 0x23, 0x39, 0xc6, 0x0b, 0x8f, 0xe4, 0x18, 0x1f, 0x3c, 0x92, 0x63, 0x9c, 0xf0, 0x58, 0x8e,
-	0xe1, 0xc2, 0x63, 0x39, 0x86, 0x1b, 0x8f, 0xe5, 0x18, 0xa2, 0xcc, 0xd3, 0x33, 0x4b, 0x32, 0x4a,
-	0x93, 0xf4, 0x92, 0xf3, 0x73, 0xf5, 0x13, 0x33, 0x8b, 0x92, 0x33, 0x12, 0x33, 0xf3, 0x8a, 0x75,
-	0xf3, 0x52, 0x4b, 0xca, 0xf3, 0x8b, 0xb2, 0xf5, 0xb1, 0xfa, 0xb3, 0xa4, 0xb2, 0x20, 0xb5, 0x38,
-	0x89, 0x0d, 0x1c, 0x51, 0xc6, 0x80, 0x00, 0x00, 0x00, 0xff, 0xff, 0xa3, 0x4e, 0xda, 0x65, 0x59,
-	0x02, 0x00, 0x00,
+	// 500 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x8c, 0x53, 0xbf, 0x6f, 0x13, 0x31,
+	0x14, 0x8e, 0x29, 0x0d, 0x3d, 0x13, 0x04, 0x58, 0x15, 0xbd, 0x1e, 0xe8, 0x1a, 0x85, 0x0e, 0x51,
+	0xa0, 0x77, 0xa2, 0x48, 0x54, 0xaa, 0xc4, 0x40, 0x98, 0x10, 0x4a, 0x05, 0x07, 0x2c, 0x2c, 0xe0,
+	0x5e, 0x2c, 0xe7, 0xa8, 0xce, 0x3e, 0xd9, 0x4e, 0x69, 0x37, 0xc4, 0xc8, 0xc4, 0x1f, 0xc1, 0xc0,
+	0x98, 0x81, 0x7f, 0x80, 0xad, 0x63, 0x05, 0x0b, 0x13, 0x42, 0xc9, 0x90, 0x7f, 0x03, 0xf9, 0xc7,
+	0x25, 0x24, 0xa4, 0x52, 0x97, 0xc4, 0xdf, 0xfb, 0xde, 0x7b, 0xdf, 0xfb, 0xfc, 0x7c, 0xf0, 0xe6,
+	0xbb, 0x3e, 0x4b, 0x55, 0xc6, 0x59, 0xac, 0x04, 0x4e, 0x0f, 0x28, 0x56, 0x24, 0x56, 0x47, 0x51,
+	0x21, 0xb8, 0xe2, 0x08, 0x95, 0x64, 0x34, 0x21, 0x83, 0xeb, 0x38, 0xcf, 0x18, 0x8f, 0xcd, 0xaf,
+	0x4d, 0x0b, 0xd6, 0x52, 0x2e, 0x73, 0x2e, 0xe3, 0x5c, 0xd2, 0xf8, 0xf0, 0x9e, 0xfe, 0x73, 0xc4,
+	0xba, 0x25, 0xde, 0x18, 0x14, 0x5b, 0xe0, 0xa8, 0x55, 0xca, 0x29, 0xb7, 0x71, 0x7d, 0x72, 0xd1,
+	0x8d, 0x05, 0xd3, 0x14, 0x58, 0xe0, 0xdc, 0x95, 0x35, 0xbe, 0x03, 0x78, 0xb5, 0x23, 0xe9, 0xab,
+	0xa2, 0x8b, 0x15, 0x79, 0x66, 0x18, 0xf4, 0x00, 0x7a, 0xb8, 0xaf, 0x7a, 0x5c, 0x64, 0xea, 0xd8,
+	0x07, 0x75, 0xd0, 0xf4, 0xda, 0xfe, 0x8f, 0x6f, 0x5b, 0xab, 0x4e, 0xef, 0x51, 0xb7, 0x2b, 0x88,
+	0x94, 0x2f, 0x94, 0xc8, 0x18, 0x4d, 0xa6, 0xa9, 0xe8, 0x21, 0xac, 0xda, 0xde, 0xfe, 0x85, 0x3a,
+	0x68, 0x5e, 0xde, 0x0e, 0xa2, 0xff, 0xed, 0x46, 0x56, 0xa3, 0xed, 0x9d, 0xfc, 0xde, 0xa8, 0x7c,
+	0x1d, 0x0f, 0x5a, 0x20, 0x71, 0x45, 0xbb, 0x3b, 0x1f, 0xc7, 0x83, 0xd6, 0xb4, 0xdd, 0xa7, 0xf1,
+	0xa0, 0xb5, 0x39, 0x19, 0xff, 0xe8, 0x1f, 0x03, 0x73, 0xf3, 0x36, 0xd6, 0xe1, 0xda, 0x5c, 0x28,
+	0x21, 0xb2, 0xe0, 0x4c, 0x92, 0xc6, 0x17, 0x00, 0xaf, 0x75, 0x24, 0x7d, 0xa9, 0x6b, 0x1f, 0x0b,
+	0x82, 0x75, 0x2f, 0xe4, 0xc3, 0x4b, 0xa9, 0x3e, 0x73, 0x61, 0xdd, 0x25, 0x25, 0x44, 0xb7, 0xa0,
+	0x67, 0x64, 0xf6, 0x70, 0x4e, 0x8c, 0x09, 0x2f, 0x99, 0x06, 0x74, 0x9d, 0x01, 0x4f, 0xba, 0xfe,
+	0x92, 0xad, 0x73, 0x50, 0x33, 0x87, 0x44, 0xc8, 0x8c, 0x33, 0xff, 0xa2, 0x65, 0x1c, 0x44, 0x37,
+	0x60, 0x55, 0xa6, 0x3d, 0x92, 0x63, 0x7f, 0xb9, 0x0e, 0x9a, 0xb5, 0xc4, 0xa1, 0xdd, 0x9a, 0x36,
+	0x5b, 0xea, 0x36, 0xf6, 0xa0, 0x3f, 0x3f, 0x65, 0x69, 0x01, 0x05, 0x70, 0xc5, 0xc8, 0x3c, 0x25,
+	0x6e, 0x19, 0xc9, 0x04, 0x9b, 0xee, 0x0a, 0xab, 0xbe, 0xbd, 0xf1, 0x95, 0xc4, 0xa1, 0xed, 0x9f,
+	0x00, 0x2e, 0x75, 0x24, 0x45, 0x6f, 0x61, 0x6d, 0x66, 0xb3, 0xb7, 0x17, 0x6d, 0x64, 0xee, 0xee,
+	0x82, 0x3b, 0xe7, 0x48, 0x9a, 0x4c, 0x97, 0xc2, 0x2b, 0xb3, 0x97, 0xbb, 0x79, 0x46, 0xf5, 0x4c,
+	0x56, 0x70, 0xf7, 0x3c, 0x59, 0xa5, 0x48, 0xb0, 0xfc, 0x41, 0x3f, 0x94, 0xf6, 0xf3, 0x93, 0x61,
+	0x08, 0x4e, 0x87, 0x21, 0xf8, 0x33, 0x0c, 0xc1, 0xe7, 0x51, 0x58, 0x39, 0x1d, 0x85, 0x95, 0x5f,
+	0xa3, 0xb0, 0xf2, 0x7a, 0x87, 0x66, 0xaa, 0xd7, 0xdf, 0x8f, 0x52, 0x9e, 0xc7, 0x38, 0x13, 0x69,
+	0x0f, 0x67, 0x4c, 0x6e, 0x31, 0xa2, 0xde, 0x73, 0x71, 0x10, 0x2f, 0x7c, 0x44, 0xea, 0xb8, 0x20,
+	0x72, 0xbf, 0x6a, 0xbe, 0x82, 0xfb, 0x7f, 0x03, 0x00, 0x00, 0xff, 0xff, 0x96, 0xf8, 0x8f, 0xbc,
+	0xb6, 0x03, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -176,6 +312,7 @@ type MsgClient interface {
 	// UpdateParams defines a (governance) operation for updating the module
 	// parameters. The authority defaults to the x/gov module account.
 	UpdateParams(ctx context.Context, in *MsgUpdateParams, opts ...grpc.CallOption) (*MsgUpdateParamsResponse, error)
+	TrackCreation(ctx context.Context, in *MsgTrackCreation, opts ...grpc.CallOption) (*MsgTrackCreationResponse, error)
 }
 
 type msgClient struct {
@@ -195,11 +332,21 @@ func (c *msgClient) UpdateParams(ctx context.Context, in *MsgUpdateParams, opts 
 	return out, nil
 }
 
+func (c *msgClient) TrackCreation(ctx context.Context, in *MsgTrackCreation, opts ...grpc.CallOption) (*MsgTrackCreationResponse, error) {
+	out := new(MsgTrackCreationResponse)
+	err := c.cc.Invoke(ctx, "/junction.trackgate.Msg/TrackCreation", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MsgServer is the server API for Msg service.
 type MsgServer interface {
 	// UpdateParams defines a (governance) operation for updating the module
 	// parameters. The authority defaults to the x/gov module account.
 	UpdateParams(context.Context, *MsgUpdateParams) (*MsgUpdateParamsResponse, error)
+	TrackCreation(context.Context, *MsgTrackCreation) (*MsgTrackCreationResponse, error)
 }
 
 // UnimplementedMsgServer can be embedded to have forward compatible implementations.
@@ -208,6 +355,9 @@ type UnimplementedMsgServer struct {
 
 func (*UnimplementedMsgServer) UpdateParams(ctx context.Context, req *MsgUpdateParams) (*MsgUpdateParamsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateParams not implemented")
+}
+func (*UnimplementedMsgServer) TrackCreation(ctx context.Context, req *MsgTrackCreation) (*MsgTrackCreationResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method TrackCreation not implemented")
 }
 
 func RegisterMsgServer(s grpc1.Server, srv MsgServer) {
@@ -232,6 +382,24 @@ func _Msg_UpdateParams_Handler(srv interface{}, ctx context.Context, dec func(in
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Msg_TrackCreation_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgTrackCreation)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).TrackCreation(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/junction.trackgate.Msg/TrackCreation",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).TrackCreation(ctx, req.(*MsgTrackCreation))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _Msg_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "junction.trackgate.Msg",
 	HandlerType: (*MsgServer)(nil),
@@ -239,6 +407,10 @@ var _Msg_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateParams",
 			Handler:    _Msg_UpdateParams_Handler,
+		},
+		{
+			MethodName: "TrackCreation",
+			Handler:    _Msg_TrackCreation_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
@@ -308,6 +480,104 @@ func (m *MsgUpdateParamsResponse) MarshalToSizedBuffer(dAtA []byte) (int, error)
 	return len(dAtA) - i, nil
 }
 
+func (m *MsgTrackCreation) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgTrackCreation) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgTrackCreation) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.Schema) > 0 {
+		i -= len(m.Schema)
+		copy(dAtA[i:], m.Schema)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Schema)))
+		i--
+		dAtA[i] = 0x2a
+	}
+	if len(m.Version) > 0 {
+		i -= len(m.Version)
+		copy(dAtA[i:], m.Version)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Version)))
+		i--
+		dAtA[i] = 0x22
+	}
+	if len(m.TrackId) > 0 {
+		i -= len(m.TrackId)
+		copy(dAtA[i:], m.TrackId)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.TrackId)))
+		i--
+		dAtA[i] = 0x1a
+	}
+	if len(m.TrackName) > 0 {
+		i -= len(m.TrackName)
+		copy(dAtA[i:], m.TrackName)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.TrackName)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.Creator) > 0 {
+		i -= len(m.Creator)
+		copy(dAtA[i:], m.Creator)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Creator)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *MsgTrackCreationResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgTrackCreationResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgTrackCreationResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Status {
+		i--
+		if m.Status {
+			dAtA[i] = 1
+		} else {
+			dAtA[i] = 0
+		}
+		i--
+		dAtA[i] = 0x10
+	}
+	if len(m.TrackKey) > 0 {
+		i -= len(m.TrackKey)
+		copy(dAtA[i:], m.TrackKey)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.TrackKey)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
 func encodeVarintTx(dAtA []byte, offset int, v uint64) int {
 	offset -= sovTx(v)
 	base := offset
@@ -340,6 +610,51 @@ func (m *MsgUpdateParamsResponse) Size() (n int) {
 	}
 	var l int
 	_ = l
+	return n
+}
+
+func (m *MsgTrackCreation) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Creator)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.TrackName)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.TrackId)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.Version)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.Schema)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	return n
+}
+
+func (m *MsgTrackCreationResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.TrackKey)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	if m.Status {
+		n += 2
+	}
 	return n
 }
 
@@ -493,6 +808,320 @@ func (m *MsgUpdateParamsResponse) Unmarshal(dAtA []byte) error {
 			return fmt.Errorf("proto: MsgUpdateParamsResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgTrackCreation) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgTrackCreation: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgTrackCreation: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Creator", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Creator = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field TrackName", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.TrackName = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field TrackId", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.TrackId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Version", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Version = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 5:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Schema", wireType)
+			}
+			var byteLen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				byteLen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if byteLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + byteLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Schema = append(m.Schema[:0], dAtA[iNdEx:postIndex]...)
+			if m.Schema == nil {
+				m.Schema = []byte{}
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgTrackCreationResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgTrackCreationResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgTrackCreationResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field TrackKey", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.TrackKey = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Status", wireType)
+			}
+			var v int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				v |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			m.Status = bool(v != 0)
 		default:
 			iNdEx = preIndex
 			skippy, err := skipTx(dAtA[iNdEx:])
