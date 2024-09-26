@@ -8,14 +8,13 @@ import (
 
 var _ sdk.Msg = &MsgTrackCreation{}
 
-func NewMsgTrackCreation(creator string, trackName string, trackId string, version string, schema []byte, status bool) *MsgTrackCreation {
+func NewMsgTrackCreation(creator string, trackName string, trackId string, version string, schema []byte) *MsgTrackCreation {
 	return &MsgTrackCreation{
 		Creator:   creator,
 		TrackName: trackName,
 		TrackId:   trackId,
 		Version:   version,
 		Schema:    schema,
-		Status:    status,
 	}
 }
 
