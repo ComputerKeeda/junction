@@ -19262,42 +19262,6 @@ paths:
               parameters.
       tags:
         - Msg
-  /airchains-network/junction/trackgate/params:
-    get:
-      summary: Parameters queries the parameters of the module.
-      operationId: JunctionTrackgateQuery_Params
-      responses:
-        '200':
-          description: A successful response.
-          schema:
-            type: object
-            properties:
-              params:
-                description: params holds all the parameters of this module.
-                type: object
-            description: >-
-              QueryParamsResponse is response type for the Query/Params RPC
-              method.
-        default:
-          description: An unexpected error response.
-          schema:
-            type: object
-            properties:
-              code:
-                type: integer
-                format: int32
-              message:
-                type: string
-              details:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    '@type':
-                      type: string
-                  additionalProperties: {}
-      tags:
-        - Query
   /junction.trackgate.Msg/TrackCreation:
     post:
       operationId: JunctionTrackgateMsg_TrackCreation
@@ -19309,6 +19273,8 @@ paths:
             properties:
               trackKey:
                 type: string
+              status:
+                type: boolean
         default:
           description: An unexpected error response.
           schema:
@@ -19345,8 +19311,6 @@ paths:
               schema:
                 type: string
                 format: byte
-              status:
-                type: boolean
       tags:
         - Msg
   /junction.trackgate.Msg/UpdateParams:
@@ -19402,6 +19366,95 @@ paths:
             description: MsgUpdateParams is the Msg/UpdateParams request type.
       tags:
         - Msg
+  /airchains-network/junction/trackgate/params:
+    get:
+      summary: Parameters queries the parameters of the module.
+      operationId: JunctionTrackgateQuery_Params
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              params:
+                description: params holds all the parameters of this module.
+                type: object
+            description: >-
+              QueryParamsResponse is response type for the Query/Params RPC
+              method.
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      tags:
+        - Query
+  /airchains-network/junction/trackgate/retrieve_track_key/{trackId}:
+    get:
+      summary: Queries a list of RetrieveTrackKey items.
+      operationId: JunctionTrackgateQuery_RetrieveTrackKey
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              track:
+                type: object
+                properties:
+                  trackName:
+                    type: string
+                  trackId:
+                    type: string
+                  trackKey:
+                    type: string
+                  version:
+                    type: string
+                  schema:
+                    type: string
+                    format: byte
+                  creators:
+                    type: array
+                    items:
+                      type: string
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: trackId
+          in: path
+          required: true
+          type: string
+      tags:
+        - Query
 definitions:
   cosmos.auth.v1beta1.MsgUpdateParams:
     type: object
@@ -27142,16 +27195,6 @@ definitions:
     description: |-
       Version defines the versioning scheme used to negotiate the IBC verison in
       the connection handshake.
-  junction.trackgate.Params:
-    type: object
-    description: Params defines the parameters for the module.
-  junction.trackgate.QueryParamsResponse:
-    type: object
-    properties:
-      params:
-        description: params holds all the parameters of this module.
-        type: object
-    description: QueryParamsResponse is response type for the Query/Params RPC method.
   junction.trackgate.MsgTrackCreation:
     type: object
     properties:
@@ -27166,13 +27209,13 @@ definitions:
       schema:
         type: string
         format: byte
-      status:
-        type: boolean
   junction.trackgate.MsgTrackCreationResponse:
     type: object
     properties:
       trackKey:
         type: string
+      status:
+        type: boolean
   junction.trackgate.MsgUpdateParams:
     type: object
     properties:
@@ -27190,3 +27233,52 @@ definitions:
     description: |-
       MsgUpdateParamsResponse defines the response structure for executing a
       MsgUpdateParams message.
+  junction.trackgate.Params:
+    type: object
+    description: Params defines the parameters for the module.
+  junction.trackgate.ExtTrack:
+    type: object
+    properties:
+      trackName:
+        type: string
+      trackId:
+        type: string
+      trackKey:
+        type: string
+      version:
+        type: string
+      schema:
+        type: string
+        format: byte
+      creators:
+        type: array
+        items:
+          type: string
+  junction.trackgate.QueryParamsResponse:
+    type: object
+    properties:
+      params:
+        description: params holds all the parameters of this module.
+        type: object
+    description: QueryParamsResponse is response type for the Query/Params RPC method.
+  junction.trackgate.QueryRetrieveTrackKeyResponse:
+    type: object
+    properties:
+      track:
+        type: object
+        properties:
+          trackName:
+            type: string
+          trackId:
+            type: string
+          trackKey:
+            type: string
+          version:
+            type: string
+          schema:
+            type: string
+            format: byte
+          creators:
+            type: array
+            items:
+              type: string

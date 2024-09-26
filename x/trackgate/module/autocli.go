@@ -17,6 +17,13 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 					Use:       "params",
 					Short:     "Shows the parameters of the module",
 				},
+				{
+					RpcMethod:      "RetrieveTrackKey",
+					Use:            "retrieve-track-key [track-id]",
+					Short:          "Query retrieve-track-key",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "trackId"}},
+				},
+
 				// this line is used by ignite scaffolding # autocli/query
 			},
 		},
