@@ -19313,6 +19313,51 @@ paths:
                 format: byte
       tags:
         - Msg
+  /junction.trackgate.Msg/TrackEngage:
+    post:
+      operationId: JunctionTrackgateMsg_TrackEngage
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              status:
+                type: boolean
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              creator:
+                type: string
+              trackKey:
+                type: string
+              schemaObject:
+                type: string
+                format: byte
+      tags:
+        - Msg
   /junction.trackgate.Msg/UpdateParams:
     post:
       summary: |-
@@ -27214,6 +27259,21 @@ definitions:
     properties:
       trackKey:
         type: string
+      status:
+        type: boolean
+  junction.trackgate.MsgTrackEngage:
+    type: object
+    properties:
+      creator:
+        type: string
+      trackKey:
+        type: string
+      schemaObject:
+        type: string
+        format: byte
+  junction.trackgate.MsgTrackEngageResponse:
+    type: object
+    properties:
       status:
         type: boolean
   junction.trackgate.MsgUpdateParams:

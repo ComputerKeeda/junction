@@ -18,6 +18,7 @@ func (k msgServer) TrackCreation(goCtx context.Context, msg *types.MsgTrackCreat
 	ctx := sdk.UnwrapSDKContext(goCtx)
 	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
 
+	// format: TRK-yyyyMMdd-nnnn
 	trackId := msg.TrackId
 	trackName := msg.TrackName
 	trackCreator := msg.Creator

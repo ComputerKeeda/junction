@@ -8,7 +8,6 @@ package trackgate
 
 import (
 	context "context"
-
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -22,6 +21,7 @@ const _ = grpc.SupportPackageIsVersion7
 const (
 	Msg_UpdateParams_FullMethodName  = "/junction.trackgate.Msg/UpdateParams"
 	Msg_TrackCreation_FullMethodName = "/junction.trackgate.Msg/TrackCreation"
+	Msg_TrackEngage_FullMethodName   = "/junction.trackgate.Msg/TrackEngage"
 )
 
 // MsgClient is the client API for Msg service.
@@ -32,6 +32,7 @@ type MsgClient interface {
 	// parameters. The authority defaults to the x/gov module account.
 	UpdateParams(ctx context.Context, in *MsgUpdateParams, opts ...grpc.CallOption) (*MsgUpdateParamsResponse, error)
 	TrackCreation(ctx context.Context, in *MsgTrackCreation, opts ...grpc.CallOption) (*MsgTrackCreationResponse, error)
+	TrackEngage(ctx context.Context, in *MsgTrackEngage, opts ...grpc.CallOption) (*MsgTrackEngageResponse, error)
 }
 
 type msgClient struct {
@@ -60,6 +61,15 @@ func (c *msgClient) TrackCreation(ctx context.Context, in *MsgTrackCreation, opt
 	return out, nil
 }
 
+func (c *msgClient) TrackEngage(ctx context.Context, in *MsgTrackEngage, opts ...grpc.CallOption) (*MsgTrackEngageResponse, error) {
+	out := new(MsgTrackEngageResponse)
+	err := c.cc.Invoke(ctx, Msg_TrackEngage_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MsgServer is the server API for Msg service.
 // All implementations must embed UnimplementedMsgServer
 // for forward compatibility
@@ -68,6 +78,7 @@ type MsgServer interface {
 	// parameters. The authority defaults to the x/gov module account.
 	UpdateParams(context.Context, *MsgUpdateParams) (*MsgUpdateParamsResponse, error)
 	TrackCreation(context.Context, *MsgTrackCreation) (*MsgTrackCreationResponse, error)
+	TrackEngage(context.Context, *MsgTrackEngage) (*MsgTrackEngageResponse, error)
 	mustEmbedUnimplementedMsgServer()
 }
 
@@ -80,6 +91,9 @@ func (UnimplementedMsgServer) UpdateParams(context.Context, *MsgUpdateParams) (*
 }
 func (UnimplementedMsgServer) TrackCreation(context.Context, *MsgTrackCreation) (*MsgTrackCreationResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method TrackCreation not implemented")
+}
+func (UnimplementedMsgServer) TrackEngage(context.Context, *MsgTrackEngage) (*MsgTrackEngageResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method TrackEngage not implemented")
 }
 func (UnimplementedMsgServer) mustEmbedUnimplementedMsgServer() {}
 
@@ -130,6 +144,24 @@ func _Msg_TrackCreation_Handler(srv interface{}, ctx context.Context, dec func(i
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Msg_TrackEngage_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgTrackEngage)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).TrackEngage(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_TrackEngage_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).TrackEngage(ctx, req.(*MsgTrackEngage))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Msg_ServiceDesc is the grpc.ServiceDesc for Msg service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -144,6 +176,10 @@ var Msg_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "TrackCreation",
 			Handler:    _Msg_TrackCreation_Handler,
+		},
+		{
+			MethodName: "TrackEngage",
+			Handler:    _Msg_TrackEngage_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

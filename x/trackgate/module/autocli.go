@@ -41,6 +41,12 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 					Short:          "Send a track-creation tx",
 					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "trackName"}, {ProtoField: "trackId"}, {ProtoField: "version"}, {ProtoField: "schema"}, {ProtoField: "status"}},
 				},
+				{
+					RpcMethod:      "TrackEngage",
+					Use:            "track-engage [track-key] [schema-object]",
+					Short:          "Send a track-engage tx",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "trackKey"}, {ProtoField: "schemaObject"}},
+				},
 				// this line is used by ignite scaffolding # autocli/tx
 			},
 		},
