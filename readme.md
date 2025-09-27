@@ -1,50 +1,29 @@
-# junction
-**junction** is a blockchain built using Cosmos SDK and Tendermint and created with [Ignite CLI](https://ignite.com/cli).
+# junction bridge project
 
-## Get started
+Trying to build a bridge between Junction and Sepolia testnet.
+a simple lock and mint mechanism.
 
-```
-ignite chain serve
-```
+# Ignite cli version
 
-`serve` command installs dependencies, builds, initializes, and starts your blockchain in development.
-
-### Configure
-
-Your blockchain in development can be configured with `config.yml`. To learn more, see the [Ignite CLI docs](https://docs.ignite.com).
-
-### Web Frontend
-
-Additionally, Ignite CLI offers a frontend scaffolding feature (based on Vue) to help you quickly build a web frontend for your blockchain:
-
-Use: `ignite scaffold vue`
-This command can be run within your scaffolded blockchain project.
-
-
-For more information see the [monorepo for Ignite front-end development](https://github.com/ignite/web).
-
-## Release
-To release a new version of your blockchain, create and push a new tag with `v` prefix. A new draft release with the configured targets will be created.
+Ignite cli version i am using for this project is
 
 ```
-git tag v0.1
-git push origin v0.1
+Ignite CLI version:  v29.4.0-dev
+Ignite CLI build date:  2025-09-16T16:44:21Z
+Ignite CLI source hash:  832b8bfc6b98fc1e74c95a9dcd81ec2e6bcd70ce
+Ignite CLI config version: v1
+Cosmos SDK version:  v0.53.3
+Buf.build version:  1.57.2
+Your OS:   linux
+Your arch:   amd64
+Your go version:  go version go1.24.3 linux/amd64
+Your uname -a:   Linux kurama 6.12.10-76061203-generic #202412060638~1753385872~22.04~dc2e00d SMP PREEMPT_DYNAMIC Thu J x86_64 x86_64 x86_64 GNU/Linux
+Your cwd:   /home/computerkeeda/Code/bridge_work/junction
 ```
 
-After a draft release is created, make your final changes from the release page and publish it.
+So this is kind of a tag i am attaching to this current version which is
 
-### Install
-To install the latest version of your blockchain node's binary, execute the following command on your machine:
+| Ignite CLI version | Bridge version |
+| ------------------ | -------------- |
+| v29.4.0-dev        | bridge-v1.0.0  |
 
-```
-curl https://get.ignite.com/username/junction@latest! | sudo bash
-```
-`username/junction` should match the `username` and `repo_name` of the Github repository to which the source code was pushed. Learn more about [the install process](https://github.com/ignite/installer).
-
-## Learn more
-
-- [Ignite CLI](https://ignite.com/cli)
-- [Tutorials](https://docs.ignite.com/guide)
-- [Ignite CLI docs](https://docs.ignite.com)
-- [Cosmos SDK docs](https://docs.cosmos.network)
-- [Developer Chat](https://discord.com/invite/ignitecli)
