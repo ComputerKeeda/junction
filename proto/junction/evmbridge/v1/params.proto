@@ -1,0 +1,13 @@
+syntax = "proto3";
+package junction.evmbridge.v1;
+
+import "amino/amino.proto";
+import "gogoproto/gogo.proto";
+
+option go_package = "junction/x/evmbridge/types";
+
+// Params defines the parameters for the module.
+message Params {
+  option (amino.name) = "junction/x/evmbridge/Params";
+  option (gogoproto.equal) = true;
+}

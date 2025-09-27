@@ -46,6 +46,7 @@ import (
 	ibckeeper "github.com/cosmos/ibc-go/v10/modules/core/keeper"
 
 	"junction/docs"
+	evmbridgemodulekeeper "junction/x/evmbridge/keeper"
 )
 
 const (
@@ -98,7 +99,8 @@ type App struct {
 	TransferKeeper      ibctransferkeeper.Keeper
 
 	// simulation manager
-	sm *module.SimulationManager
+	sm              *module.SimulationManager
+	EvmbridgeKeeper evmbridgemodulekeeper.Keeper
 }
 
 func init() {
@@ -171,6 +173,7 @@ func New(
 		&app.ConsensusParamsKeeper,
 		&app.CircuitBreakerKeeper,
 		&app.ParamsKeeper,
+		&app.EvmbridgeKeeper,
 	); err != nil {
 		panic(err)
 	}
