@@ -1,51 +1,29 @@
-# junction
-**junction** is a blockchain built using Cosmos SDK and Tendermint and created with [Ignite CLI](https://ignite.com/cli).
+# junction bridge project
 
-## Get started
+Trying to build a bridge between Junction and Sepolia testnet.
+a simple lock and mint mechanism.
 
-```
-ignite chain serve
-```
+# Ignite cli version
 
-`serve` command installs dependencies, builds, initializes, and starts your blockchain in development.
-
-### Configure
-
-Your blockchain in development can be configured with `config.yml`. To learn more, see the [Ignite CLI docs](https://docs.ignite.com).
-
-### Web Frontend
-
-Additionally, Ignite CLI offers both Vue and React options for frontend scaffolding:
-
-For a Vue frontend, use: `ignite scaffold vue`
-For a React frontend, use: `ignite scaffold react`
-These commands can be run within your scaffolded blockchain project. 
-
-
-For more information see the [monorepo for Ignite front-end development](https://github.com/ignite/web).
-
-## Release
-To release a new version of your blockchain, create and push a new tag with `v` prefix. A new draft release with the configured targets will be created.
+Ignite cli version i am using for this project is
 
 ```
-git tag v0.1
-git push origin v0.1
+Ignite CLI version:             v28.6.0
+Ignite CLI build date:          2024-11-26T20:34:44Z
+Ignite CLI source hash:         54f41311dbaf47de537dcaf6c529f401a12d0e60
+Ignite CLI config version:      v1
+Cosmos SDK version:             v0.50.9
+Your OS:                        linux
+Your arch:                      amd64
+Your go version:                go version go1.25.1 linux/amd64
+Your uname -a:                  Linux shubham 6.14.0-33-generic #33~24.04.1-Ubuntu SMP PREEMPT_DYNAMIC Fri Sep 19 17:02:30 UTC 2 x86_64 x86_64 x86_64 GNU/Linux
+Your cwd:                       /home/shubham/code/bridge/junction
+Is on Gitpod:                   false
 ```
 
-After a draft release is created, make your final changes from the release page and publish it.
+So this is kind of a tag i am attaching to this current version which is
 
-### Install
-To install the latest version of your blockchain node's binary, execute the following command on your machine:
+| Ignite CLI version | Bridge version |
+| ------------------ | -------------- |
+| v29.4.0-dev        | bridge-v1.0.0  |
 
-```
-curl https://get.ignite.com/airchains-network/junction@latest! | sudo bash
-```
-`airchains-network/junction` should match the `username` and `repo_name` of the Github repository to which the source code was pushed. Learn more about [the install process](https://github.com/allinbits/starport-installer).
-
-## Learn more
-
-- [Ignite CLI](https://ignite.com/cli)
-- [Tutorials](https://docs.ignite.com/guide)
-- [Ignite CLI docs](https://docs.ignite.com)
-- [Cosmos SDK docs](https://docs.cosmos.network)
-- [Developer Chat](https://discord.gg/ignite)
