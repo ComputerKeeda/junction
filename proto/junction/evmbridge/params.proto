@@ -13,4 +13,6 @@ message Params {
 
   // bridge_workers defines the list of addresses authorized to unlock tokens
   repeated string bridge_workers = 1;
+  // bridge contract address
+  string bridge_contract_address = 2;
 }
