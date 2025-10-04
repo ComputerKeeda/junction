@@ -1,6 +1,7 @@
 package types
 
 import (
+	sdk "github.com/cosmos/cosmos-sdk/types"
 	paramtypes "github.com/cosmos/cosmos-sdk/x/params/types"
 )
 
@@ -13,7 +14,9 @@ func ParamKeyTable() paramtypes.KeyTable {
 
 // NewParams creates a new Params instance
 func NewParams() Params {
-	return Params{}
+	return Params{
+		BridgeWorkers: []string{},
+	}
 }
 
 // DefaultParams returns a default set of parameters
@@ -28,5 +31,11 @@ func (p *Params) ParamSetPairs() paramtypes.ParamSetPairs {
 
 // Validate validates the set of params
 func (p Params) Validate() error {
+	// Validate each authorized bridge worker
+	for _, worker := range p.BridgeWorkers {
+		if _, err := sdk.AccAddressFromBech32(worker); err != nil {
+			return err
+		}
+	}
 	return nil
 }

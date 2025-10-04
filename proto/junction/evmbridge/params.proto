@@ -11,5 +11,6 @@ message Params {
   option (amino.name) = "junction/x/evmbridge/Params";
   option (gogoproto.equal) = true;
 
-  
+  // bridge_workers defines the list of addresses authorized to unlock tokens
+  repeated string bridge_workers = 1;
 }
