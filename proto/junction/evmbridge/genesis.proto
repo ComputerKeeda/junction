@@ -1,0 +1,17 @@
+syntax = "proto3";
+package junction.evmbridge;
+
+import "amino/amino.proto";
+import "gogoproto/gogo.proto";
+import "junction/evmbridge/params.proto";
+
+option go_package = "github.com/airchains-network/junction/x/evmbridge/types";
+
+// GenesisState defines the evmbridge module's genesis state.
+message GenesisState {
+  // params defines all the parameters of the module.
+  Params params = 1 [
+    (gogoproto.nullable) = false,
+    (amino.dont_omitempty) = true
+  ];
+}
