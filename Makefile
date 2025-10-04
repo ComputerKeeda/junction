@@ -19,6 +19,14 @@ ldflags = -X github.com/cosmos/cosmos-sdk/version.Name=$(APPNAME) \
 
 BUILD_FLAGS := -ldflags '$(ldflags)'
 
+build: go.sum
+ifeq ($(OS),Windows_NT)
+	$(error junctiond server not supported. Use "make build-windows-client" for client)
+	exit 1
+else
+	go build -mod=readonly $(BUILD_FLAGS) -o build/junctiond ./cmd/junctiond
+endif
+
 ##############
 ###  Test  ###
 ##############

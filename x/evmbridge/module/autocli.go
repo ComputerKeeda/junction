@@ -31,7 +31,7 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 				{
 					RpcMethod:      "LockTokens",
 					Use:            "lock-tokens [to-address] [amount]",
-					Short:          "Send a lock-tokens tx",
+					Short:          "Send a lock-tokens tx which locks tokens from the user's account to the module account and release a lock event with this evm address (this to-address is the evm address of the user in which evm tokens will be minted)",
 					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "toAddress"}, {ProtoField: "amount"}},
 				},
 				{
