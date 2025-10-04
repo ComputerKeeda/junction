@@ -70,6 +70,9 @@ func (k msgServer) LockTokens(goCtx context.Context, msg *types.MsgLockTokens) (
 	if err := k.SetAddressLockedAmount(ctx, msg.Creator, amountUint64); err != nil {
 		return nil, types.ErrFailedToLockTokens.Wrap(err.Error())
 	}
+	if err := k.SetAddressMapping(ctx, msg.ToAddress, msg.Creator); err != nil {
+		return nil, types.ErrFailedToMapAddress.Wrap(err.Error())
+	}
 
 	// Emit simple event for bridge relayer
 	sdkCtx.EventManager().EmitEvent(

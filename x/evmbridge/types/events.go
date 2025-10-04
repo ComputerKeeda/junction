@@ -24,4 +24,6 @@ const (
 	AttributeKeyRecipient = "recipient"
 	// AttributeKeyEVMTxHash is the EVM transaction hash that triggered the unlock
 	AttributeKeyEVMTxHash = "evm_tx_hash"
+	// AttributeKeyFromEvmAddress is the EVM address that triggered the unlock
+	AttributeKeyFromEvmAddress = "from_evm_address"
 )

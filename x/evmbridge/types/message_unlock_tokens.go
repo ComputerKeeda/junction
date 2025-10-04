@@ -8,10 +8,10 @@ import (
 
 var _ sdk.Msg = &MsgUnlockTokens{}
 
-func NewMsgUnlockTokens(creator string, toAddress string, amount string, evmTxHash string) *MsgUnlockTokens {
+func NewMsgUnlockTokens(creator string, fromEvmAddress string, amount string, evmTxHash string) *MsgUnlockTokens {
 	return &MsgUnlockTokens{
 		Creator:   creator,
-		ToAddress: toAddress,
+		FromEvmAddress: fromEvmAddress,
 		Amount:    amount,
 		EvmTxHash: evmTxHash,
 	}

@@ -50,7 +50,7 @@ message MsgLockTokensResponse {}
 message MsgUnlockTokens {
   option (cosmos.msg.v1.signer) = "creator";
   string creator   = 1;
-  string toAddress = 2;
+  string fromEvmAddress = 2;
   string amount    = 3;
   string evmTxHash = 4;
 }

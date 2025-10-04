@@ -14,11 +14,11 @@ import (
 	"google.golang.org/grpc/status"
 )
 
-func (k Keeper) GetAddressLockedAmount(ctx sdk.Context, address string) (uint64, error) {
+func (k Keeper) GetAddressLockedAmount(ctx sdk.Context, cosmos_address string) (uint64, error) {
 	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
-	rollupRegistryStore := prefix.NewStore(storeAdapter, types.KeyPrefix(types.EVMLedgerKey))
+	ledgerStore := prefix.NewStore(storeAdapter, types.KeyPrefix(types.EVMLedgerKey))
 
-	amountBytes := rollupRegistryStore.Get([]byte(address))
+	amountBytes := ledgerStore.Get([]byte(cosmos_address))
 	if amountBytes == nil {
 		return 0, nil
 	}
@@ -26,12 +26,12 @@ func (k Keeper) GetAddressLockedAmount(ctx sdk.Context, address string) (uint64,
 	return amount, nil
 }
 
-func (k Keeper) AddAddressLockedAmount(ctx sdk.Context, address string, amountToAdd uint64) (uint64, error) {
+func (k Keeper) AddAddressLockedAmount(ctx sdk.Context, cosmos_address string, amountToAdd uint64) (uint64, error) {
 	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
-	rollupRegistryStore := prefix.NewStore(storeAdapter, types.KeyPrefix(types.EVMLedgerKey))
+	ledgerStore := prefix.NewStore(storeAdapter, types.KeyPrefix(types.EVMLedgerKey))
 
 	// Get current amount
-	currentAmount, err := k.GetAddressLockedAmount(ctx, address)
+	currentAmount, err := k.GetAddressLockedAmount(ctx, cosmos_address)
 	if err != nil {
 		return 0, err
 	}
@@ -42,17 +42,17 @@ func (k Keeper) AddAddressLockedAmount(ctx sdk.Context, address string, amountTo
 	// Convert to bytes and store
 	amountBytes := make([]byte, 8)
 	binary.BigEndian.PutUint64(amountBytes, newAmount)
-	rollupRegistryStore.Set([]byte(address), amountBytes)
+	ledgerStore.Set([]byte(cosmos_address), amountBytes)
 
 	return newAmount, nil
 }
 
-func (k Keeper) SubtractAddressLockedAmount(ctx sdk.Context, address string, amountToSubtract uint64) (uint64, error) {
+func (k Keeper) SubtractAddressLockedAmount(ctx sdk.Context, cosmos_address string, amountToSubtract uint64) (uint64, error) {
 	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
-	rollupRegistryStore := prefix.NewStore(storeAdapter, types.KeyPrefix(types.EVMLedgerKey))
+	ledgerStore := prefix.NewStore(storeAdapter, types.KeyPrefix(types.EVMLedgerKey))
 
 	// Get current amount
-	currentAmount, err := k.GetAddressLockedAmount(ctx, address)
+	currentAmount, err := k.GetAddressLockedAmount(ctx, cosmos_address)
 	if err != nil {
 		return 0, err
 	}
@@ -68,19 +68,39 @@ func (k Keeper) SubtractAddressLockedAmount(ctx sdk.Context, address string, amo
 	// Convert to bytes and store
 	amountBytes := make([]byte, 8)
 	binary.BigEndian.PutUint64(amountBytes, newAmount)
-	rollupRegistryStore.Set([]byte(address), amountBytes)
+	ledgerStore.Set([]byte(cosmos_address), amountBytes)
 
 	return newAmount, nil
 }
 
-func (k Keeper) SetAddressLockedAmount(ctx sdk.Context, address string, amount uint64) error {
+func (k Keeper) SetAddressLockedAmount(ctx sdk.Context, cosmos_address string, amount uint64) error {
 	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
-	rollupRegistryStore := prefix.NewStore(storeAdapter, types.KeyPrefix(types.EVMLedgerKey))
+	ledgerStore := prefix.NewStore(storeAdapter, types.KeyPrefix(types.EVMLedgerKey))
 
 	// Convert to bytes and store
 	amountBytes := make([]byte, 8)
 	binary.BigEndian.PutUint64(amountBytes, amount)
-	rollupRegistryStore.Set([]byte(address), amountBytes)
+	ledgerStore.Set([]byte(cosmos_address), amountBytes)
 
 	return nil
+}
+
+// Store address mapping (evm address -> cosmos address)
+func (k Keeper) SetAddressMapping(ctx sdk.Context, evm_address string, cosmos_address string) error {
+	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
+	ledgerMappingStore := prefix.NewStore(storeAdapter, types.KeyPrefix(types.EVMMappingKey))
+
+	ledgerMappingStore.Set([]byte(evm_address), []byte(cosmos_address))
+	return nil
+}
+
+func (k Keeper) GetCosmosAddressMapping(ctx sdk.Context, evm_address string) (string, error) {
+	storeAdapter := runtime.KVStoreAdapter(k.storeService.OpenKVStore(ctx))
+	ledgerMappingStore := prefix.NewStore(storeAdapter, types.KeyPrefix(types.EVMMappingKey))
+
+	cosmos_address := ledgerMappingStore.Get([]byte(evm_address))
+	if cosmos_address == nil {
+		return "", status.Error(codes.NotFound, "address mapping not found")
+	}
+	return string(cosmos_address), nil
 }

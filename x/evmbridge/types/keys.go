@@ -11,6 +11,8 @@ const (
 	MemStoreKey = "mem_evmbridge"
 
 	EVMLedgerKey = "evm_ledger"
+
+	EVMMappingKey = "evm_mapping"
 )
 
 var (

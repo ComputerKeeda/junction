@@ -18,4 +18,8 @@ var (
 	ErrInvalidRecipient        = sdkerrors.Register(ModuleName, 1106, "invalid recipient address")
 	ErrInsufficientUserBalance = sdkerrors.Register(ModuleName, 1107, "user has insufficient locked balance")
 	ErrFailedToLockTokens      = sdkerrors.Register(ModuleName, 1108, "failed to lock tokens")
+	ErrFailedToMapAddress      = sdkerrors.Register(ModuleName, 1109, "failed to map address")
+	ErrInvalidAddress          = sdkerrors.Register(ModuleName, 1109, "invalid address")
+	ErrInvalidEvmTxHash        = sdkerrors.Register(ModuleName, 1110, "invalid evm tx hash")
+	ErrFailedToUnlockTokens    = sdkerrors.Register(ModuleName, 1111, "failed to unlock tokens")
 )
