@@ -34,6 +34,12 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 					Short:          "Send a lock-tokens tx",
 					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "toAddress"}, {ProtoField: "amount"}},
 				},
+				{
+					RpcMethod:      "UnlockTokens",
+					Use:            "unlock-tokens [to-address] [amount] [evm-tx-hash]",
+					Short:          "Send a unlock-tokens tx",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "toAddress"}, {ProtoField: "amount"}, {ProtoField: "evmTxHash"}},
+				},
 				// this line is used by ignite scaffolding # autocli/tx
 			},
 		},

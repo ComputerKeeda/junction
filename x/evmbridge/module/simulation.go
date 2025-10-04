@@ -27,6 +27,10 @@ const (
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgLockTokens int = 100
 
+	opWeightMsgUnlockTokens = "op_weight_msg_unlock_tokens"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgUnlockTokens int = 100
+
 	// this line is used by starport scaffolding # simapp/module/const
 )
 
@@ -61,6 +65,17 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 		evmbridgesimulation.SimulateMsgLockTokens(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
+	var weightMsgUnlockTokens int
+	simState.AppParams.GetOrGenerate(opWeightMsgUnlockTokens, &weightMsgUnlockTokens, nil,
+		func(_ *rand.Rand) {
+			weightMsgUnlockTokens = defaultWeightMsgUnlockTokens
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgUnlockTokens,
+		evmbridgesimulation.SimulateMsgUnlockTokens(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
 	// this line is used by starport scaffolding # simapp/module/operation
 
 	return operations
@@ -74,6 +89,14 @@ func (am AppModule) ProposalMsgs(simState module.SimulationState) []simtypes.Wei
 			defaultWeightMsgLockTokens,
 			func(r *rand.Rand, ctx sdk.Context, accs []simtypes.Account) sdk.Msg {
 				evmbridgesimulation.SimulateMsgLockTokens(am.accountKeeper, am.bankKeeper, am.keeper)
+				return nil
+			},
+		),
+		simulation.NewWeightedProposalMsg(
+			opWeightMsgUnlockTokens,
+			defaultWeightMsgUnlockTokens,
+			func(r *rand.Rand, ctx sdk.Context, accs []simtypes.Account) sdk.Msg {
+				evmbridgesimulation.SimulateMsgUnlockTokens(am.accountKeeper, am.bankKeeper, am.keeper)
 				return nil
 			},
 		),

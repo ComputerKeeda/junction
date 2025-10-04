@@ -18,6 +18,7 @@ service Msg {
   // parameters. The authority defaults to the x/gov module account.
   rpc UpdateParams (MsgUpdateParams) returns (MsgUpdateParamsResponse);
   rpc LockTokens   (MsgLockTokens  ) returns (MsgLockTokensResponse  );
+  rpc UnlockTokens (MsgUnlockTokens) returns (MsgUnlockTokensResponse);
 }
 // MsgUpdateParams is the Msg/UpdateParams request type.
 message MsgUpdateParams {
@@ -45,4 +46,14 @@ message MsgLockTokens {
 }
 
 message MsgLockTokensResponse {}
+
+message MsgUnlockTokens {
+  option (cosmos.msg.v1.signer) = "creator";
+  string creator   = 1;
+  string toAddress = 2;
+  string amount    = 3;
+  string evmTxHash = 4;
+}
+
+message MsgUnlockTokensResponse {}
 

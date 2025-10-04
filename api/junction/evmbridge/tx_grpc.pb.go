@@ -8,6 +8,7 @@ package evmbridge
 
 import (
 	context "context"
+
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -21,6 +22,7 @@ const _ = grpc.SupportPackageIsVersion7
 const (
 	Msg_UpdateParams_FullMethodName = "/junction.evmbridge.Msg/UpdateParams"
 	Msg_LockTokens_FullMethodName   = "/junction.evmbridge.Msg/LockTokens"
+	Msg_UnlockTokens_FullMethodName = "/junction.evmbridge.Msg/UnlockTokens"
 )
 
 // MsgClient is the client API for Msg service.
@@ -31,6 +33,7 @@ type MsgClient interface {
 	// parameters. The authority defaults to the x/gov module account.
 	UpdateParams(ctx context.Context, in *MsgUpdateParams, opts ...grpc.CallOption) (*MsgUpdateParamsResponse, error)
 	LockTokens(ctx context.Context, in *MsgLockTokens, opts ...grpc.CallOption) (*MsgLockTokensResponse, error)
+	UnlockTokens(ctx context.Context, in *MsgUnlockTokens, opts ...grpc.CallOption) (*MsgUnlockTokensResponse, error)
 }
 
 type msgClient struct {
@@ -59,6 +62,15 @@ func (c *msgClient) LockTokens(ctx context.Context, in *MsgLockTokens, opts ...g
 	return out, nil
 }
 
+func (c *msgClient) UnlockTokens(ctx context.Context, in *MsgUnlockTokens, opts ...grpc.CallOption) (*MsgUnlockTokensResponse, error) {
+	out := new(MsgUnlockTokensResponse)
+	err := c.cc.Invoke(ctx, Msg_UnlockTokens_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MsgServer is the server API for Msg service.
 // All implementations must embed UnimplementedMsgServer
 // for forward compatibility
@@ -67,6 +79,7 @@ type MsgServer interface {
 	// parameters. The authority defaults to the x/gov module account.
 	UpdateParams(context.Context, *MsgUpdateParams) (*MsgUpdateParamsResponse, error)
 	LockTokens(context.Context, *MsgLockTokens) (*MsgLockTokensResponse, error)
+	UnlockTokens(context.Context, *MsgUnlockTokens) (*MsgUnlockTokensResponse, error)
 	mustEmbedUnimplementedMsgServer()
 }
 
@@ -79,6 +92,9 @@ func (UnimplementedMsgServer) UpdateParams(context.Context, *MsgUpdateParams) (*
 }
 func (UnimplementedMsgServer) LockTokens(context.Context, *MsgLockTokens) (*MsgLockTokensResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method LockTokens not implemented")
+}
+func (UnimplementedMsgServer) UnlockTokens(context.Context, *MsgUnlockTokens) (*MsgUnlockTokensResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UnlockTokens not implemented")
 }
 func (UnimplementedMsgServer) mustEmbedUnimplementedMsgServer() {}
 
@@ -129,6 +145,24 @@ func _Msg_LockTokens_Handler(srv interface{}, ctx context.Context, dec func(inte
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Msg_UnlockTokens_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgUnlockTokens)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).UnlockTokens(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_UnlockTokens_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).UnlockTokens(ctx, req.(*MsgUnlockTokens))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Msg_ServiceDesc is the grpc.ServiceDesc for Msg service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -143,6 +177,10 @@ var Msg_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "LockTokens",
 			Handler:    _Msg_LockTokens_Handler,
+		},
+		{
+			MethodName: "UnlockTokens",
+			Handler:    _Msg_UnlockTokens_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
