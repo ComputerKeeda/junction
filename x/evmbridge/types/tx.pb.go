@@ -6,10 +6,6 @@ package types
 import (
 	context "context"
 	fmt "fmt"
-	io "io"
-	math "math"
-	math_bits "math/bits"
-
 	_ "github.com/cosmos/cosmos-proto"
 	_ "github.com/cosmos/cosmos-sdk/types/msgservice"
 	_ "github.com/cosmos/cosmos-sdk/types/tx/amino"
@@ -19,6 +15,9 @@ import (
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
+	io "io"
+	math "math"
+	math_bits "math/bits"
 )
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -36,8 +35,6 @@ const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 type MsgUpdateParams struct {
 	// authority is the address that controls the module (defaults to x/gov unless overwritten).
 	Authority string `protobuf:"bytes,1,opt,name=authority,proto3" json:"authority,omitempty"`
-	// params defines the module parameters to update.
-	//
 	// NOTE: All parameters must be supplied.
 	Params Params `protobuf:"bytes,2,opt,name=params,proto3" json:"params"`
 }
@@ -127,38 +124,142 @@ func (m *MsgUpdateParamsResponse) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_MsgUpdateParamsResponse proto.InternalMessageInfo
 
+type MsgLockTokens struct {
+	Creator   string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
+	ToAddress string `protobuf:"bytes,2,opt,name=toAddress,proto3" json:"toAddress,omitempty"`
+	Amount    string `protobuf:"bytes,3,opt,name=amount,proto3" json:"amount,omitempty"`
+}
+
+func (m *MsgLockTokens) Reset()         { *m = MsgLockTokens{} }
+func (m *MsgLockTokens) String() string { return proto.CompactTextString(m) }
+func (*MsgLockTokens) ProtoMessage()    {}
+func (*MsgLockTokens) Descriptor() ([]byte, []int) {
+	return fileDescriptor_f6560419405fbcfe, []int{2}
+}
+func (m *MsgLockTokens) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgLockTokens) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgLockTokens.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgLockTokens) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgLockTokens.Merge(m, src)
+}
+func (m *MsgLockTokens) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgLockTokens) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgLockTokens.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgLockTokens proto.InternalMessageInfo
+
+func (m *MsgLockTokens) GetCreator() string {
+	if m != nil {
+		return m.Creator
+	}
+	return ""
+}
+
+func (m *MsgLockTokens) GetToAddress() string {
+	if m != nil {
+		return m.ToAddress
+	}
+	return ""
+}
+
+func (m *MsgLockTokens) GetAmount() string {
+	if m != nil {
+		return m.Amount
+	}
+	return ""
+}
+
+type MsgLockTokensResponse struct {
+}
+
+func (m *MsgLockTokensResponse) Reset()         { *m = MsgLockTokensResponse{} }
+func (m *MsgLockTokensResponse) String() string { return proto.CompactTextString(m) }
+func (*MsgLockTokensResponse) ProtoMessage()    {}
+func (*MsgLockTokensResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_f6560419405fbcfe, []int{3}
+}
+func (m *MsgLockTokensResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgLockTokensResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgLockTokensResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgLockTokensResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgLockTokensResponse.Merge(m, src)
+}
+func (m *MsgLockTokensResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgLockTokensResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgLockTokensResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgLockTokensResponse proto.InternalMessageInfo
+
 func init() {
 	proto.RegisterType((*MsgUpdateParams)(nil), "junction.evmbridge.MsgUpdateParams")
 	proto.RegisterType((*MsgUpdateParamsResponse)(nil), "junction.evmbridge.MsgUpdateParamsResponse")
+	proto.RegisterType((*MsgLockTokens)(nil), "junction.evmbridge.MsgLockTokens")
+	proto.RegisterType((*MsgLockTokensResponse)(nil), "junction.evmbridge.MsgLockTokensResponse")
 }
 
 func init() { proto.RegisterFile("junction/evmbridge/tx.proto", fileDescriptor_f6560419405fbcfe) }
 
 var fileDescriptor_f6560419405fbcfe = []byte{
-	// 355 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x92, 0xce, 0x2a, 0xcd, 0x4b,
-	0x2e, 0xc9, 0xcc, 0xcf, 0xd3, 0x4f, 0x2d, 0xcb, 0x4d, 0x2a, 0xca, 0x4c, 0x49, 0x4f, 0xd5, 0x2f,
-	0xa9, 0xd0, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0x12, 0x82, 0x49, 0xea, 0xc1, 0x25, 0xa5, 0x04,
-	0x13, 0x73, 0x33, 0xf3, 0xf2, 0xf5, 0xc1, 0x24, 0x44, 0x99, 0x94, 0x78, 0x72, 0x7e, 0x71, 0x6e,
-	0x7e, 0xb1, 0x7e, 0x6e, 0x71, 0xba, 0x7e, 0x99, 0x21, 0x88, 0x82, 0x4a, 0x48, 0x42, 0x24, 0xe2,
-	0xc1, 0x3c, 0x7d, 0x08, 0x07, 0x2a, 0x25, 0x92, 0x9e, 0x9f, 0x9e, 0x0f, 0x11, 0x07, 0xb1, 0xa0,
-	0xa2, 0xf2, 0x58, 0x5c, 0x53, 0x90, 0x58, 0x94, 0x98, 0x0b, 0xd5, 0xa6, 0x74, 0x90, 0x91, 0x8b,
-	0xdf, 0xb7, 0x38, 0x3d, 0xb4, 0x20, 0x25, 0xb1, 0x24, 0x35, 0x00, 0x2c, 0x23, 0x64, 0xc6, 0xc5,
-	0x99, 0x58, 0x5a, 0x92, 0x91, 0x5f, 0x94, 0x59, 0x52, 0x29, 0xc1, 0xa8, 0xc0, 0xa8, 0xc1, 0xe9,
-	0x24, 0x71, 0x69, 0x8b, 0xae, 0x08, 0xd4, 0x3e, 0xc7, 0x94, 0x94, 0xa2, 0xd4, 0xe2, 0xe2, 0xe0,
-	0x92, 0xa2, 0xcc, 0xbc, 0xf4, 0x20, 0x84, 0x52, 0x21, 0x5b, 0x2e, 0x36, 0x88, 0xd9, 0x12, 0x4c,
-	0x0a, 0x8c, 0x1a, 0xdc, 0x46, 0x52, 0x7a, 0x98, 0xde, 0xd5, 0x83, 0xd8, 0xe1, 0xc4, 0x79, 0xe2,
-	0x9e, 0x3c, 0xc3, 0x8a, 0xe7, 0x1b, 0xb4, 0x18, 0x83, 0xa0, 0x9a, 0xac, 0xcc, 0x9b, 0x9e, 0x6f,
-	0xd0, 0x42, 0x18, 0xd7, 0xf5, 0x7c, 0x83, 0x96, 0x0a, 0xdc, 0xf9, 0x15, 0x48, 0x1e, 0x40, 0x73,
-	0xaf, 0x92, 0x24, 0x97, 0x38, 0x9a, 0x50, 0x50, 0x6a, 0x71, 0x41, 0x7e, 0x5e, 0x71, 0xaa, 0x51,
-	0x1e, 0x17, 0xb3, 0x6f, 0x71, 0xba, 0x50, 0x02, 0x17, 0x0f, 0x8a, 0x0f, 0x95, 0xb1, 0xb9, 0x0c,
-	0xcd, 0x0c, 0x29, 0x6d, 0x22, 0x14, 0xc1, 0x2c, 0x92, 0x62, 0x6d, 0x00, 0xf9, 0xc5, 0x29, 0xf0,
-	0xc4, 0x23, 0x39, 0xc6, 0x0b, 0x8f, 0xe4, 0x18, 0x1f, 0x3c, 0x92, 0x63, 0x9c, 0xf0, 0x58, 0x8e,
-	0xe1, 0xc2, 0x63, 0x39, 0x86, 0x1b, 0x8f, 0xe5, 0x18, 0xa2, 0xcc, 0xd3, 0x33, 0x4b, 0x32, 0x4a,
-	0x93, 0xf4, 0x92, 0xf3, 0x73, 0xf5, 0x13, 0x33, 0x8b, 0x92, 0x33, 0x12, 0x33, 0xf3, 0x8a, 0x75,
-	0xf3, 0x52, 0x4b, 0xca, 0xf3, 0x8b, 0xb2, 0xf5, 0xb1, 0xfa, 0xb3, 0xa4, 0xb2, 0x20, 0xb5, 0x38,
-	0x89, 0x0d, 0x1c, 0x51, 0xc6, 0x80, 0x00, 0x00, 0x00, 0xff, 0xff, 0x85, 0xc9, 0x3f, 0x61, 0x59,
-	0x02, 0x00, 0x00,
+	// 451 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x8c, 0x52, 0x31, 0x6f, 0x13, 0x31,
+	0x14, 0x8e, 0xa9, 0x08, 0x3a, 0x53, 0x84, 0xb0, 0x0a, 0xb9, 0x1e, 0xe8, 0x5a, 0x02, 0x43, 0x09,
+	0xea, 0x59, 0x14, 0x89, 0x4a, 0x95, 0x18, 0xc8, 0x4c, 0x24, 0x38, 0x60, 0xe9, 0x02, 0xce, 0xc5,
+	0x72, 0x4c, 0x64, 0xbf, 0x93, 0xed, 0x94, 0x76, 0x43, 0x8c, 0x4c, 0xfc, 0x0c, 0xc6, 0x0c, 0xfc,
+	0x01, 0xb6, 0x8a, 0xa9, 0x62, 0x62, 0x42, 0x28, 0x19, 0xf2, 0x37, 0x50, 0xee, 0x7c, 0x4d, 0x1b,
+	0x82, 0x60, 0xb9, 0xbb, 0xf7, 0xbe, 0xef, 0xbd, 0xef, 0xfb, 0xec, 0xc3, 0x37, 0xdf, 0x0e, 0x75,
+	0xe6, 0x24, 0x68, 0xca, 0x0f, 0x54, 0xd7, 0xc8, 0x9e, 0xe0, 0xd4, 0x1d, 0x26, 0xb9, 0x01, 0x07,
+	0x84, 0x54, 0x60, 0x72, 0x0a, 0x46, 0xd7, 0x98, 0x92, 0x1a, 0x68, 0xf1, 0x2c, 0x69, 0x51, 0x23,
+	0x03, 0xab, 0xc0, 0x52, 0x65, 0x05, 0x3d, 0x78, 0x30, 0x7b, 0x79, 0x60, 0xbd, 0x04, 0x5e, 0x17,
+	0x15, 0x2d, 0x0b, 0x0f, 0xad, 0x09, 0x10, 0x50, 0xf6, 0x67, 0x5f, 0xbe, 0xbb, 0xb1, 0xc4, 0x4d,
+	0xce, 0x0c, 0x53, 0x7e, 0xac, 0xf9, 0x15, 0xe1, 0xab, 0x1d, 0x2b, 0x5e, 0xe5, 0x3d, 0xe6, 0xf8,
+	0xb3, 0x02, 0x21, 0x8f, 0x70, 0xc0, 0x86, 0xae, 0x0f, 0x46, 0xba, 0xa3, 0x10, 0x6d, 0xa2, 0xad,
+	0xa0, 0x1d, 0x7e, 0xff, 0xb2, 0xbd, 0xe6, 0xf5, 0x9e, 0xf4, 0x7a, 0x86, 0x5b, 0xfb, 0xc2, 0x19,
+	0xa9, 0x45, 0x3a, 0xa7, 0x92, 0xc7, 0xb8, 0x5e, 0xee, 0x0e, 0x2f, 0x6c, 0xa2, 0xad, 0xcb, 0x3b,
+	0x51, 0xf2, 0x67, 0xdc, 0xa4, 0xd4, 0x68, 0x07, 0xc7, 0x3f, 0x37, 0x6a, 0x9f, 0xa7, 0xa3, 0x16,
+	0x4a, 0xfd, 0xd0, 0xde, 0xee, 0x87, 0xe9, 0xa8, 0x35, 0x5f, 0xf7, 0x71, 0x3a, 0x6a, 0xdd, 0x3d,
+	0xb5, 0x7f, 0x78, 0x26, 0xc0, 0x82, 0xdf, 0xe6, 0x3a, 0x6e, 0x2c, 0xb4, 0x52, 0x6e, 0x73, 0xd0,
+	0x96, 0x37, 0x15, 0xbe, 0xd2, 0xb1, 0xe2, 0x29, 0x64, 0x83, 0x97, 0x30, 0xe0, 0xda, 0x92, 0x10,
+	0x5f, 0xca, 0x0c, 0x67, 0x0e, 0x4c, 0x99, 0x2c, 0xad, 0x4a, 0x72, 0x0b, 0x07, 0x0e, 0x7c, 0xb6,
+	0x22, 0x40, 0x90, 0xce, 0x1b, 0xe4, 0x06, 0xae, 0x33, 0x05, 0x43, 0xed, 0xc2, 0x95, 0x02, 0xf2,
+	0xd5, 0xde, 0xea, 0xcc, 0x74, 0xb5, 0xa3, 0xd9, 0xc0, 0xd7, 0xcf, 0xc9, 0x55, 0x3e, 0x76, 0xbe,
+	0x21, 0xbc, 0xd2, 0xb1, 0x82, 0xbc, 0xc1, 0xab, 0xe7, 0x8e, 0xfa, 0xce, 0xb2, 0x23, 0x5a, 0x08,
+	0x13, 0xdd, 0xff, 0x0f, 0x52, 0xa5, 0x44, 0xf6, 0x31, 0x3e, 0x13, 0xf7, 0xf6, 0x5f, 0x46, 0xe7,
+	0x94, 0xe8, 0xde, 0x3f, 0x29, 0xd5, 0xee, 0xe8, 0xe2, 0xfb, 0xd9, 0x85, 0xb5, 0x9f, 0x1f, 0x8f,
+	0x63, 0x74, 0x32, 0x8e, 0xd1, 0xaf, 0x71, 0x8c, 0x3e, 0x4d, 0xe2, 0xda, 0xc9, 0x24, 0xae, 0xfd,
+	0x98, 0xc4, 0xb5, 0xfd, 0x5d, 0x21, 0x5d, 0x7f, 0xd8, 0x4d, 0x32, 0x50, 0x94, 0x49, 0x93, 0xf5,
+	0x99, 0xd4, 0x76, 0x5b, 0x73, 0xf7, 0x0e, 0xcc, 0x80, 0x2e, 0xbd, 0x4c, 0x77, 0x94, 0x73, 0xdb,
+	0xad, 0x17, 0x7f, 0xe3, 0xc3, 0xdf, 0x01, 0x00, 0x00, 0xff, 0xff, 0xca, 0x68, 0x6d, 0x99, 0x3e,
+	0x03, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -176,6 +277,7 @@ type MsgClient interface {
 	// UpdateParams defines a (governance) operation for updating the module
 	// parameters. The authority defaults to the x/gov module account.
 	UpdateParams(ctx context.Context, in *MsgUpdateParams, opts ...grpc.CallOption) (*MsgUpdateParamsResponse, error)
+	LockTokens(ctx context.Context, in *MsgLockTokens, opts ...grpc.CallOption) (*MsgLockTokensResponse, error)
 }
 
 type msgClient struct {
@@ -195,11 +297,21 @@ func (c *msgClient) UpdateParams(ctx context.Context, in *MsgUpdateParams, opts 
 	return out, nil
 }
 
+func (c *msgClient) LockTokens(ctx context.Context, in *MsgLockTokens, opts ...grpc.CallOption) (*MsgLockTokensResponse, error) {
+	out := new(MsgLockTokensResponse)
+	err := c.cc.Invoke(ctx, "/junction.evmbridge.Msg/LockTokens", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MsgServer is the server API for Msg service.
 type MsgServer interface {
 	// UpdateParams defines a (governance) operation for updating the module
 	// parameters. The authority defaults to the x/gov module account.
 	UpdateParams(context.Context, *MsgUpdateParams) (*MsgUpdateParamsResponse, error)
+	LockTokens(context.Context, *MsgLockTokens) (*MsgLockTokensResponse, error)
 }
 
 // UnimplementedMsgServer can be embedded to have forward compatible implementations.
@@ -208,6 +320,9 @@ type UnimplementedMsgServer struct {
 
 func (*UnimplementedMsgServer) UpdateParams(ctx context.Context, req *MsgUpdateParams) (*MsgUpdateParamsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateParams not implemented")
+}
+func (*UnimplementedMsgServer) LockTokens(ctx context.Context, req *MsgLockTokens) (*MsgLockTokensResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method LockTokens not implemented")
 }
 
 func RegisterMsgServer(s grpc1.Server, srv MsgServer) {
@@ -232,6 +347,24 @@ func _Msg_UpdateParams_Handler(srv interface{}, ctx context.Context, dec func(in
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Msg_LockTokens_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgLockTokens)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).LockTokens(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/junction.evmbridge.Msg/LockTokens",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).LockTokens(ctx, req.(*MsgLockTokens))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var Msg_serviceDesc = _Msg_serviceDesc
 var _Msg_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "junction.evmbridge.Msg",
@@ -240,6 +373,10 @@ var _Msg_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateParams",
 			Handler:    _Msg_UpdateParams_Handler,
+		},
+		{
+			MethodName: "LockTokens",
+			Handler:    _Msg_LockTokens_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
@@ -309,6 +446,73 @@ func (m *MsgUpdateParamsResponse) MarshalToSizedBuffer(dAtA []byte) (int, error)
 	return len(dAtA) - i, nil
 }
 
+func (m *MsgLockTokens) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgLockTokens) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgLockTokens) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.Amount) > 0 {
+		i -= len(m.Amount)
+		copy(dAtA[i:], m.Amount)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Amount)))
+		i--
+		dAtA[i] = 0x1a
+	}
+	if len(m.ToAddress) > 0 {
+		i -= len(m.ToAddress)
+		copy(dAtA[i:], m.ToAddress)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.ToAddress)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.Creator) > 0 {
+		i -= len(m.Creator)
+		copy(dAtA[i:], m.Creator)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Creator)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *MsgLockTokensResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgLockTokensResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgLockTokensResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	return len(dAtA) - i, nil
+}
+
 func encodeVarintTx(dAtA []byte, offset int, v uint64) int {
 	offset -= sovTx(v)
 	base := offset
@@ -336,6 +540,36 @@ func (m *MsgUpdateParams) Size() (n int) {
 }
 
 func (m *MsgUpdateParamsResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	return n
+}
+
+func (m *MsgLockTokens) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Creator)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.ToAddress)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.Amount)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	return n
+}
+
+func (m *MsgLockTokensResponse) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -492,6 +726,202 @@ func (m *MsgUpdateParamsResponse) Unmarshal(dAtA []byte) error {
 		}
 		if fieldNum <= 0 {
 			return fmt.Errorf("proto: MsgUpdateParamsResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgLockTokens) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgLockTokens: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgLockTokens: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Creator", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Creator = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ToAddress", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ToAddress = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Amount", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Amount = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgLockTokensResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgLockTokensResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgLockTokensResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		default:

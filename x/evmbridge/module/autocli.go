@@ -28,6 +28,12 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 					RpcMethod: "UpdateParams",
 					Skip:      true, // skipped because authority gated
 				},
+				{
+					RpcMethod:      "LockTokens",
+					Use:            "lock-tokens [to-address] [amount]",
+					Short:          "Send a lock-tokens tx",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "toAddress"}, {ProtoField: "amount"}},
+				},
 				// this line is used by ignite scaffolding # autocli/tx
 			},
 		},
