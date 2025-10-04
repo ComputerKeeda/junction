@@ -3,11 +3,11 @@
 Trying to build a bridge between Junction and Sepolia testnet.
 a simple lock and mint mechanism.
 
-# Ignite cli version
+## Ignite cli version
 
 Ignite cli version i am using for this project is
 
-```
+```shell
 Ignite CLI version:             v28.6.0
 Ignite CLI build date:          2024-11-26T20:34:44Z
 Ignite CLI source hash:         54f41311dbaf47de537dcaf6c529f401a12d0e60
@@ -25,5 +25,4 @@ So this is kind of a tag i am attaching to this current version which is
 
 | Ignite CLI version | Bridge version |
 | ------------------ | -------------- |
-| v29.4.0-dev        | bridge-v1.0.0  |
-
+| v28.6.0            | bridge-v1.2.0  |
