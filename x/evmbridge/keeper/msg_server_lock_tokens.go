@@ -77,6 +77,8 @@ func (k msgServer) LockTokens(goCtx context.Context, msg *types.MsgLockTokens) (
 		return nil, types.ErrFailedToMapAddress.Wrap(err.Error())
 	}
 
+	bridgeContractAddress := k.GetParams(ctx).BridgeContractAddress
+
 	// Emit simple event for bridge relayer
 	sdkCtx.EventManager().EmitEvent(
 		sdk.NewEvent(
@@ -86,6 +88,7 @@ func (k msgServer) LockTokens(goCtx context.Context, msg *types.MsgLockTokens) (
 			sdk.NewAttribute(types.AttributeKeyToAddress, msg.ToAddress),
 			sdk.NewAttribute(types.AttributeKeyBlockHeight, fmt.Sprintf("%d", blockHeight)),
 			sdk.NewAttribute(types.AttributeKeyTimestamp, blockTime.Format(time.RFC3339)),
+			sdk.NewAttribute(types.AttributeKeyBridgeContractAddress, bridgeContractAddress),
 		),
 	)
 
