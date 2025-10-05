@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"strconv"
+	"strings"
 	"time"
 
 	"github.com/airchains-network/junction/x/evmbridge/types"
@@ -44,7 +45,8 @@ func (k msgServer) UnlockTokens(goCtx context.Context, msg *types.MsgUnlockToken
 	}
 
 	// we need to check if the passed amount is a valid number or not
-	_, err = strconv.ParseUint(msg.Amount, 10, 64)
+	trimmedAmount := strings.TrimSuffix(msg.Amount, "uamf")
+	_, err = strconv.ParseUint(trimmedAmount, 10, 64)
 	if err != nil {
 		return nil, types.ErrInvalidAmount.Wrapf("invalid amount: %s", err)
 	}
@@ -58,7 +60,7 @@ func (k msgServer) UnlockTokens(goCtx context.Context, msg *types.MsgUnlockToken
 	if err != nil {
 		return nil, types.ErrInvalidAmount.Wrap(err.Error())
 	}
-	amountUint64, err := strconv.ParseUint(msg.Amount, 10, 64)
+	amountUint64, err := strconv.ParseUint(trimmedAmount, 10, 64)
 	if err != nil {
 		return nil, types.ErrInvalidAmount.Wrapf("invalid amount: %s", err)
 	}
