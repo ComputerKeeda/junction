@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"strconv"
+	"strings"
 	"time"
 
 	"github.com/airchains-network/junction/x/evmbridge/types"
@@ -62,7 +63,9 @@ func (k msgServer) LockTokens(goCtx context.Context, msg *types.MsgLockTokens) (
 	blockHeight := sdkCtx.BlockHeight()
 	blockTime := sdkCtx.BlockTime()
 
-	amountUint64, err := strconv.ParseUint(msg.Amount, 10, 64)
+	// before passing msg.Amount we need to remove the denom value from it since it is going to be 1000uamf or something like this
+	trimmedAmount := strings.TrimSuffix(msg.Amount, "uamf")
+	amountUint64, err := strconv.ParseUint(trimmedAmount, 10, 64)
 	if err != nil {
 		return nil, status.Error(codes.InvalidArgument, fmt.Sprintf("invalid amount: %s", err))
 	}
