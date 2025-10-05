@@ -14,6 +14,7 @@ func (k msgServer) UnlockTokens(goCtx context.Context, msg *types.MsgUnlockToken
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	allowedWorkers := k.GetParams(ctx).BridgeWorkers
+	bridgeContractAddress := k.GetParams(ctx).BridgeContractAddress
 	var isAllowedWorker bool
 	for _, worker := range allowedWorkers {
 		if worker == msg.Creator {
@@ -104,6 +105,7 @@ func (k msgServer) UnlockTokens(goCtx context.Context, msg *types.MsgUnlockToken
 			sdk.NewAttribute(types.AttributeKeyEVMTxHash, msg.EvmTxHash),
 			sdk.NewAttribute(types.AttributeKeyBlockHeight, fmt.Sprintf("%d", blockHeight)),
 			sdk.NewAttribute(types.AttributeKeyTimestamp, blockTime.Format(time.RFC3339)),
+			sdk.NewAttribute(types.AttributeKeyBridgeContractAddress, bridgeContractAddress),
 		),
 	)
 

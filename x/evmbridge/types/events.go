@@ -26,4 +26,6 @@ const (
 	AttributeKeyEVMTxHash = "evm_tx_hash"
 	// AttributeKeyFromEvmAddress is the EVM address that triggered the unlock
 	AttributeKeyFromEvmAddress = "from_evm_address"
+	// AttributeKeyBridgeContractAddress is the bridge contract address
+	AttributeKeyBridgeContractAddress = "bridge_contract_address"
 )
